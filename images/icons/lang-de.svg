@@ -1,10 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#e8f0fc"/>
-      <stop offset="100%" stop-color="#c2d9f5"/>
-    </linearGradient>
-  </defs>
-  <rect x="4" y="4" width="120" height="120" rx="22" fill="url(#g)" stroke="#9dbbe8"/>
-  <text x="64" y="72" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#2a5ea8">DE</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" fill="none"><path fill="var(--flag-palette-bright-red, #d80027)" d="M482.2 376c19-35.8 29.8-76.6 29.8-120s-10.8-84.2-29.8-120H29.8A255 255 0 0 0 0 256c0 43.4 10.8 84.2 29.8 120z"/><path fill="var(--flag-palette-yellow, #ffda44)" d="M496.5 344a256.1 256.1 0 0 1-481 0z"/><path fill="#333" d="M496.5 168h-481a256.1 256.1 0 0 1 481 0"/></svg>
