@@ -1,0 +1,3073 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chihchen Ko – Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+
+<style>
+/* ════════════════════════════════════════
+   RESET & CSS VARIABLES
+   ════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --white: #ffffff;
+  --off-white: #f7f8fa;
+  --bg-grad-a: #f7f9fc;
+  --bg-grad-b: #f2f5f9;
+  --bg-grad-c: #eef2f7;
+  --gray-100: #eef0f4;
+  --gray-200: #dde1e8;
+  --gray-400: #8a92a4;
+  --gray-600: #545d6f;
+  --gray-800: #2c3141;
+  --navy: #1e2a4a;
+  --accent: #3b7dd8;
+  --accent-light: #e8f0fc;
+  --accent-mid: #c2d9f5;
+  --accent-dark: #2a5ea8;
+  --green: #27ae60;
+  --green-light: #eafaf1;
+  --amber: #e67e22;
+  --amber-light: #fef3e8;
+  --rose: #e74c6f;
+  --rose-light: #fce8ed;
+  --shadow-sm: 0 2px 8px rgba(30,42,74,.07);
+  --shadow-md: 0 4px 20px rgba(30,42,74,.10);
+  --shadow-lg: 0 8px 36px rgba(30,42,74,.13);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --transition: .32s cubic-bezier(.4,0,.2,1);
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Source Sans 3', 'Noto Sans TC', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  color: var(--gray-800);
+  background: var(--white);
+  line-height: 1.68;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; }
+
+/* ════════════════════════════════════════
+   NAV
+   ════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-100);
+  transition: box-shadow var(--transition);
+}
+nav.scrolled { box-shadow: var(--shadow-sm); }
+
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .9rem 1.5rem;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.35rem; font-weight: 700; color: var(--navy);
+  letter-spacing: -.01em;
+}
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex; align-items: center; gap: 1.8rem;
+}
+.nav-links a {
+  font-size: .82rem; font-weight: 500; color: var(--gray-600);
+  letter-spacing: .04em; text-transform: uppercase;
+  position: relative; padding: .2rem 0;
+  transition: color var(--transition);
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0;
+  width: 0%; height: 2px; border-radius: 2px;
+  background: var(--accent);
+  transition: width var(--transition);
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after { width: 100%; }
+
+/* Lang toggle */
+.lang-toggle {
+  display: flex; background: var(--gray-100); border-radius: 20px; padding: 3px;
+}
+.lang-btn {
+  font-size: .75rem; font-weight: 600; letter-spacing: .06em;
+  padding: 4px 11px; border-radius: 17px; border: none;
+  background: transparent; color: var(--gray-600); cursor: pointer;
+  transition: var(--transition); font-family: var(--font-body);
+}
+.lang-btn.active { background: var(--white); color: var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+
+/* Hamburger */
+.nav-hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; background: none; border: none; padding: 4px;
+}
+.nav-hamburger span {
+  width: 22px; height: 2px; border-radius: 2px;
+  background: var(--navy); transition: var(--transition);
+}
+
+/* Mobile overlay */
+.mobile-menu {
+  display: none; position: fixed; inset: 0; z-index: 199;
+  background: rgba(255,255,255,.97); flex-direction: column;
+  align-items: center; justify-content: center; gap: 1.6rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--font-display); font-size: 1.5rem;
+  font-weight: 600; color: var(--navy);
+  transition: color var(--transition);
+}
+.mobile-menu a:hover { color: var(--accent); }
+.mobile-close {
+  position: absolute; top: 1.2rem; right: 1.5rem;
+  font-size: 1.6rem; background: none; border: none;
+  color: var(--gray-600); cursor: pointer; line-height: 1;
+}
+
+/* ════════════════════════════════════════
+   SHARED SECTION STYLES
+   ════════════════════════════════════════ */
+section { padding: 6.5rem 1.5rem; }
+.container { max-width: 1000px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 3.2rem; }
+
+.section-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent-light); color: var(--accent);
+  font-size: .72rem; font-weight: 600; letter-spacing: .16em;
+  text-transform: uppercase; padding: .4rem 1rem; border-radius: 20px;
+  margin-bottom: 1rem;
+}
+.section-pill .dot {
+  width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+  font-weight: 700; color: var(--navy); line-height: 1.25;
+}
+.section-title em { font-style: italic; color: var(--accent); font-weight: 600; }
+.section-subtitle {
+  margin-top: .7rem; font-size: .95rem; color: var(--gray-400); max-width: 520px; margin-left: auto; margin-right: auto;
+}
+
+/* Alternating bg bands */
+.bg-white {
+  background:
+    radial-gradient(110% 85% at 8% 12%, rgba(59,125,216,.05), transparent 56%),
+    radial-gradient(95% 75% at 92% 88%, rgba(30,42,74,.035), transparent 62%),
+    #ffffff;
+}
+.bg-light {
+  background:
+    radial-gradient(105% 78% at 12% 10%, rgba(59,125,216,.045), transparent 58%),
+    radial-gradient(90% 72% at 88% 85%, rgba(30,42,74,.03), transparent 60%),
+    #f7f8fa;
+}
+
+/* ════════════════════════════════════════
+   REVEAL ANIMATION
+   ════════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: .08s; }
+.d2 { transition-delay: .16s; }
+.d3 { transition-delay: .24s; }
+.d4 { transition-delay: .32s; }
+.d5 { transition-delay: .40s; }
+
+/* ════════════════════════════════════════
+   1. HERO — Light theme with centered layout
+   ════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  position: relative; padding: 0 2rem;
+  background: linear-gradient(170deg, #f7f9fc 0%, #ffffff 40%, #f4f7fb 100%);
+  overflow: hidden;
+}
+
+/* Subtle decorative elements */
+#hero::before {
+  content: ''; position: absolute; top: -10%; right: -5%;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(59,125,216,.08), transparent 70%);
+  animation: float 20s ease-in-out infinite;
+}
+#hero::after {
+  content: ''; position: absolute; bottom: -15%; left: -8%;
+  width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(59,125,216,.06), transparent 70%);
+  animation: float 25s ease-in-out infinite reverse;
+}
+
+.hero-container {
+  max-width: 860px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  align-items: center; gap: 2.8rem; position: relative; z-index: 1;
+}
+
+/* Left side - Text content */
+.hero-left {
+  color: var(--navy);
+}
+.hero-greeting {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .82rem; color: var(--gray-600);
+  margin-bottom: .9rem; font-weight: 400;
+  animation: fadeInDown .7s .1s both;
+}
+.hero-greeting-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); animation: pulse 2s infinite;
+}
+
+.hero-name-large {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 6.5vw, 4.2rem);
+  font-weight: 700; line-height: 1.08; color: var(--navy);
+  margin-bottom: .45rem;
+  animation: fadeInUp .8s .25s both;
+}
+.hero-name-en {
+  font-family: var(--font-body);
+  font-size: clamp(.98rem, 2vw, 1.28rem);
+  font-weight: 500; color: var(--accent);
+  letter-spacing: .02em; margin-bottom: 1.3rem;
+  animation: fadeInUp .7s .35s both;
+}
+
+.hero-intro {
+  font-size: .92rem; line-height: 1.8;
+  color: var(--gray-600); max-width: 420px;
+  margin-bottom: 1.8rem;
+  animation: fadeInUp .7s .45s both;
+}
+
+.hero-cta {
+  display: flex; gap: .9rem; margin-bottom: 2rem;
+  animation: fadeInUp .7s .6s both;
+}
+.btn-hero-primary {
+  background: var(--accent); color: #fff; border: 2px solid var(--accent);
+  padding: .7rem 1.7rem; border-radius: 30px;
+  font-size: 1rem; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; cursor: pointer;
+  transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body);
+}
+.btn-hero-primary:hover {
+  background: var(--accent-dark); border-color: var(--accent-dark);
+  transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,125,216,.3);
+}
+.btn-hero-secondary {
+  background: transparent; color: var(--navy); border: 2px solid var(--gray-200);
+  padding: .7rem 1.7rem; border-radius: 30px;
+  font-size: .84rem; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; cursor: pointer;
+  transition: var(--transition); font-family: var(--font-body);
+}
+.btn-hero-secondary:hover {
+  border-color: var(--accent); color: var(--accent);
+  transform: translateY(-2px); box-shadow: var(--shadow-sm);
+}
+
+.hero-social {
+  display: flex; gap: 1rem;
+  animation: fadeIn .8s .75s both;
+}
+.hero-social-link {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--off-white); border: 1px solid var(--gray-200);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gray-600); font-size: 1rem;
+  transition: var(--transition);
+}
+.hero-social-link:hover {
+  background: var(--accent-light); border-color: var(--accent-mid);
+  color: var(--accent); transform: translateY(-2px);
+}
+.hero-social-link img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Right side - Photo */
+.hero-right {
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
+  animation: fadeIn .9s .5s both;
+  margin-left: -1.5rem;
+}
+.hero-photo-wrap {
+  position: relative; width: 360px; height: 360px;
+}
+.hero-photo {
+  width: 100%; height: 100%; border-radius: 50%;
+  object-fit: cover; 
+  border: 3px solid var(--gray-100);
+  box-shadow: var(--shadow-lg);
+  background: linear-gradient(135deg, var(--accent-light), var(--accent-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 6rem; color: rgba(59,125,216,.3);
+  overflow: hidden;
+}
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-exp-badge {
+  position: absolute; top: 5px; right: 5px;
+  background: var(--accent); color: #fff;
+  padding: .5rem .9rem; border-radius: 14px;
+  font-weight: 700; font-size: .76rem; line-height: 1.1;
+  box-shadow: 0 4px 14px rgba(59,125,216,.25);
+  text-align: center;
+}
+.hero-exp-badge .num { font-size: 1.3rem; display: block; }
+.hero-exp-badge .label { font-size: .65rem; text-transform: uppercase; letter-spacing: .05em; }
+
+.hero-status-badge {
+  position: absolute; bottom: 20px; right: 10px;
+  background: #fff; color: var(--green);
+  padding: .45rem .9rem; border-radius: 18px;
+  font-size: .75rem; font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; gap: 6px;
+}
+.hero-status-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); animation: pulse 2s infinite;
+}
+
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: var(--gray-400); animation: fadeIn .8s 1.2s both;
+}
+.hero-scroll span { font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; }
+.hero-scroll .arrow {
+  width: 18px; height: 18px;
+  border-right: 2px solid var(--gray-400);
+  border-bottom: 2px solid var(--gray-400);
+  transform: rotate(45deg);
+  animation: bounce 2s infinite;
+}
+
+/* Mobile adjustments */
+@media (max-width: 968px) {
+  .hero-container { 
+    grid-template-columns: 1fr; gap: 2.2rem; 
+    max-width: 520px;
+  }
+  .hero-left { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .hero-intro { max-width: 100%; }
+  .hero-cta { justify-content: center; flex-wrap: wrap; }
+  .hero-social { justify-content: center; }
+  .hero-photo-wrap { width: 220px; height: 220px; }
+  .hero-name-large { font-size: clamp(2.2rem, 10vw, 3.2rem); }
+}
+
+/* ════════════════════════════════════════
+   2. ABOUT
+   ════════════════════════════════════════ */
+#about { background: var(--white); }
+.about-head {
+  text-align: center;
+  max-width: 980px;
+  margin: 0 auto 1.65rem;
+}
+.about-head .section-pill { justify-self: center; margin: 0 auto .7rem; }
+.about-head .section-title { text-align: center; }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  gap: 2rem;
+  align-items: start;
+}
+.about-text p {
+  color: var(--gray-600);
+  font-size: .95rem;
+  line-height: 1.95;
+  margin-bottom: 1rem;
+}
+
+.about-highlights {
+  display: grid;
+  gap: .85rem;
+}
+.about-highlight-card {
+  display: grid;
+  grid-template-columns: 56px 1fr 44px;
+  align-items: center;
+  gap: .9rem;
+  min-height: 118px;
+  border-radius: 18px;
+  padding: 1rem 1.05rem;
+  border: 1.5px solid var(--gray-100);
+  background: linear-gradient(150deg, #ffffff, #f7fbff);
+  box-shadow: 0 8px 20px rgba(29,48,77,.08);
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.about-highlight-card.active {
+  border-color: rgba(59,125,216,.62);
+  box-shadow: 0 10px 22px rgba(59,125,216,.12);
+}
+.about-highlight-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(0,0,0,.1);
+}
+.about-highlight-card.academic .about-highlight-icon {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F3F4F6 100%);
+}
+.about-highlight-card.competition .about-highlight-icon {
+  background: linear-gradient(135deg, #FFFFFF 0%, #EEF2F7 100%);
+}
+.about-highlight-label {
+  color: var(--gray-500);
+  font-size: .84rem;
+  margin-bottom: .18rem;
+}
+.about-highlight-title {
+  color: var(--navy);
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: .01em;
+  line-height: 1.2;
+}
+.about-highlight-meta {
+  color: var(--gray-600);
+  font-size: .95rem;
+  margin-top: .2rem;
+}
+.about-toggle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 0;
+  background: #f0f4f9;
+  color: #7f93aa;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+.about-toggle-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition);
+}
+.about-highlight-card.active .about-toggle-btn {
+  background: rgba(59,125,216,.16);
+  color: var(--accent);
+}
+.about-highlight-card.active .about-toggle-btn svg {
+  transform: rotate(180deg);
+}
+
+.about-detail-panels {
+  margin-top: 1.1rem;
+}
+.about-detail-panel {
+  display: none;
+  border: 1px solid #d8e5f2;
+  border-radius: 20px;
+  background: linear-gradient(160deg, #f7fbff, #eef8f5);
+  padding: 1.1rem;
+}
+.about-detail-panel.active { display: block; }
+.about-detail-head {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  margin-bottom: .95rem;
+}
+.about-detail-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(0,0,0,.1);
+}
+.about-detail-panel.academic .about-detail-icon { background: linear-gradient(135deg, #FFFFFF 0%, #F3F4F6 100%); }
+.about-detail-panel.competition .about-detail-icon { background: linear-gradient(135deg, #FFFFFF 0%, #EEF2F7 100%); }
+.about-detail-title {
+  color: var(--navy);
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.about-detail-sub {
+  color: var(--gray-500);
+  font-size: .94rem;
+  margin-top: .12rem;
+}
+.about-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .8rem;
+  margin-bottom: .95rem;
+}
+.about-metric {
+  background: #fff;
+  border: 1px solid #deebf7;
+  border-radius: 14px;
+  padding: .8rem .85rem;
+}
+.about-metric-name {
+  color: var(--gray-600);
+  font-size: .84rem;
+  margin-bottom: .28rem;
+}
+.about-metric-value {
+  color: var(--accent);
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.about-metric-note {
+  color: var(--gray-500);
+  font-size: .83rem;
+  margin-top: .22rem;
+}
+.about-course-title {
+  color: var(--navy);
+  font-size: .95rem;
+  font-weight: 700;
+  margin-bottom: .55rem;
+}
+.about-course-tags,
+.about-comp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+.about-course-tags span,
+.about-comp-tags span {
+  border-radius: 999px;
+  border: 1px solid #d7e6f5;
+  background: #fff;
+  color: #3e618a;
+  font-size: .8rem;
+  padding: .25rem .56rem;
+  font-weight: 600;
+}
+.about-comp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+}
+.about-comp-card {
+  background: #fff;
+  border: 1px solid #deebf7;
+  border-radius: 14px;
+  padding: .85rem .9rem;
+}
+.about-comp-title {
+  color: var(--navy);
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: .2rem;
+}
+.about-comp-sub {
+  color: #2a875f;
+  font-size: .78rem;
+  font-weight: 700;
+  margin-bottom: .35rem;
+}
+.about-comp-desc {
+  color: var(--gray-600);
+  font-size: .78rem;
+  line-height: 1.7;
+  margin-bottom: .45rem;
+}
+
+
+/* ════════════════════════════════════════
+   3. EXPERIENCE — Center Timeline
+   ════════════════════════════════════════ */
+#experience { background: var(--off-white); }
+
+/* Filter pills row */
+.exp-filters {
+  display: flex; justify-content: center; gap: .5rem; flex-wrap: wrap;
+  margin-bottom: 2.8rem;
+}
+.exp-filter-btn {
+  font-family: var(--font-body); font-size: .78rem; font-weight: 600;
+  letter-spacing: .04em; padding: .42rem 1rem; border-radius: 20px;
+  border: 1.5px solid var(--gray-200); background: var(--white);
+  color: var(--gray-600); cursor: pointer;
+  transition: var(--transition);
+}
+.exp-filter-btn:hover { border-color: var(--accent-mid); color: var(--accent); }
+.exp-filter-btn.active {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+
+.timeline-row.filtered-out,
+.timeline-icon-node.filtered-out,
+.timeline-year-node.filtered-out {
+  display: none;
+}
+
+/* Main timeline wrapper */
+.timeline {
+  position: relative; max-width: 880px; margin: 0 auto;
+  padding-top: 1rem;
+}
+
+/* Center vertical line */
+.timeline::before {
+  content: ''; position: absolute;
+  left: 50%; transform: translateX(-50%);
+  top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, var(--accent-mid), var(--gray-200));
+  z-index: 1;
+}
+
+/* Year bubble node */
+.timeline-year-node {
+  position: relative; z-index: 2;
+  display: flex; justify-content: center; margin-bottom: 1.4rem; margin-top: .6rem;
+}
+.timeline-year-bubble {
+  background: var(--accent); color: #fff;
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+  padding: .38rem 1.3rem; border-radius: 22px;
+  box-shadow: 0 3px 12px rgba(59,125,216,.28);
+  position: relative; z-index: 2;
+}
+
+/* Icon node on the center line */
+.timeline-icon-node {
+  position: relative; z-index: 2;
+  display: flex; justify-content: center; margin-bottom: 1rem;
+}
+.timeline-icon-circle {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--white); border: 2.5px solid var(--accent-mid);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .95rem; position: relative; z-index: 2;
+  box-shadow: 0 2px 8px rgba(59,125,216,.15);
+}
+.timeline-icon-circle img {
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Row: card on one side, empty on the other */
+.timeline-row {
+  display: grid; grid-template-columns: 1fr 40px 1fr;
+  align-items: start; margin-bottom: 1.6rem; position: relative; z-index: 2;
+}
+.timeline-row .card-slot { /* the side that has the card */ }
+.timeline-row .empty-slot { /* the empty side */ }
+
+/* Left card: card in col-1, empty col-3 */
+.timeline-row.left .card-slot { grid-column: 1; justify-self: end; width: 100%; max-width: 440px; }
+.timeline-row.left .empty-slot { grid-column: 3; }
+/* Right card: empty col-1, card in col-3 */
+.timeline-row.right .empty-slot { grid-column: 1; }
+.timeline-row.right .card-slot { grid-column: 3; justify-self: start; width: 100%; max-width: 440px; }
+
+/* The card itself */
+.timeline-card {
+  background: var(--white); border: 1px solid var(--gray-100);
+  border-radius: var(--radius); padding: 1.4rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+}
+.timeline-card:hover {
+  border-color: var(--accent-mid); box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.timeline-gallery {
+  margin-top: .95rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .65rem;
+}
+.timeline-gallery-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  background: #e9edf4;
+}
+
+.timeline-gallery-item {
+  position: relative;
+  display: block;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: zoom-in;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.timeline-gallery-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 20, 36, .36);
+  opacity: 0;
+  transition: opacity var(--transition);
+  z-index: 1;
+}
+.timeline-gallery-item::after {
+  content: '';
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(.92);
+  border-radius: 50%;
+  background: rgba(255,255,255,.96);
+  opacity: 0;
+  transition: opacity var(--transition), transform var(--transition);
+  z-index: 2;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  pointer-events: none;
+}
+.timeline-gallery-item .zoom-icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(.92);
+  width: 26px;
+  height: 26px;
+  color: #183d66;
+  opacity: 0;
+  z-index: 3;
+  transition: opacity var(--transition), transform var(--transition);
+  pointer-events: none;
+}
+.timeline-gallery-item:hover::before,
+.timeline-gallery-item:hover::after,
+.timeline-gallery-item:hover .zoom-icon {
+  opacity: 1;
+}
+.timeline-gallery-item:hover::after,
+.timeline-gallery-item:hover .zoom-icon {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 13, 22, .84);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  z-index: 1200;
+}
+.image-lightbox.open { display: flex; }
+.image-lightbox-dialog {
+  width: min(92vw, 1220px);
+}
+.image-lightbox-frame {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0b1220;
+  box-shadow: 0 26px 50px rgba(0,0,0,.45);
+}
+.image-lightbox-img {
+  width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+  display: block;
+  background: #0b1220;
+}
+.image-lightbox-close {
+  position: absolute;
+  top: .7rem;
+  right: .7rem;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.image-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-lightbox-prev { left: .7rem; }
+.image-lightbox-next { right: .7rem; }
+.image-lightbox-caption {
+  text-align: center;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-top: .72rem;
+}
+.image-lightbox-hint {
+  text-align: center;
+  color: rgba(255,255,255,.72);
+  font-size: .78rem;
+  margin-top: .2rem;
+}
+
+/* Card header row: category pill + date */
+.card-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: .55rem; flex-wrap: wrap; gap: .4rem;
+}
+.card-cat-pill {
+  font-size: .68rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; padding: .22rem .65rem; border-radius: 12px;
+}
+/* Category color variants */
+.cat-work   { background: #e8f0fc; color: var(--accent); }
+.cat-edu    { background: #eafaf1; color: var(--green); }
+.cat-cert   { background: #fef3e8; color: var(--amber); }
+.cat-award  { background: #fce8ed; color: var(--rose); }
+.cat-intern { background: #ede9fe; color: #7c3aed; }
+.cat-event { background: #e8f5fb; color: #0e7490; }
+.cat-project { background: #eef2ff; color: #4f46e5; }
+.cat-talk { background: #fff7ed; color: #c2410c; }
+.cat-workshop { background: #f3ecff; color: #7c3aed; }
+
+.card-date {
+  font-size: .76rem; font-weight: 600; color: var(--gray-400);
+  letter-spacing: .02em;
+}
+.timeline-title { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: .12rem; }
+.timeline-subtitle { font-size: .82rem; color: var(--accent); font-weight: 600; margin-bottom: .4rem; }
+.timeline-company { font-size: .8rem; color: var(--gray-400); margin-bottom: .45rem; }
+.timeline-desc { font-size: .84rem; color: var(--gray-600); line-height: 1.75; }
+.timeline-checklist {
+  margin: .15rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .36rem;
+}
+.timeline-checklist li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: .84rem;
+  color: var(--gray-600);
+  line-height: 1.75;
+}
+.timeline-checklist li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #f0c15a;
+  font-weight: 700;
+}
+
+
+/* Tags row */
+.card-tags { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .7rem; }
+.card-tag {
+  font-size: .67rem; font-weight: 600; letter-spacing: .05em;
+  padding: .2rem .55rem; border-radius: 999px;
+  background: #edf3f9; border: 1px solid #d2deec;
+  color: #3e5f84;
+}
+
+/* Mobile: single column */
+@media (max-width: 680px) {
+  .timeline::before { left: 24px; transform: none; }
+  .timeline-year-node,
+  .timeline-icon-node { justify-content: flex-start; padding-left: 10px; }
+  .timeline-row {
+    grid-template-columns: 48px 1fr !important;
+    gap: 0 !important;
+  }
+  .timeline-row.left .card-slot,
+  .timeline-row.right .card-slot {
+    grid-column: 2 !important; justify-self: stretch !important; max-width: 100% !important;
+  }
+  .timeline-row .empty-slot { display: none; }
+  .timeline-gallery { grid-template-columns: 1fr; }
+  .timeline-gallery-img { aspect-ratio: 16 / 10; }
+  .image-lightbox-caption { font-size: 1rem; }
+  .image-lightbox-hint { font-size: .72rem; }
+}
+
+/* ════════════════════════════════════════
+   4. AWARDS
+   ════════════════════════════════════════ */
+#awards { background: var(--white); }
+.awards-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem;
+}
+.award-card {
+  background: var(--off-white); border: 1px solid var(--gray-100);
+  border-radius: var(--radius); padding: 1.6rem;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.award-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-mid));
+  opacity: 0; transition: opacity var(--transition);
+}
+.award-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.award-card:hover::before { opacity: 1; }
+
+.award-icon { font-size: 1.5rem; margin-bottom: .6rem; }
+.award-year {
+  font-size: .7rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: .25rem;
+}
+.award-name { font-size: .92rem; font-weight: 600; color: var(--navy); margin-bottom: .2rem; }
+.award-org { font-size: .78rem; color: var(--gray-400); }
+
+/* ════════════════════════════════════════
+   5. PROJECTS
+   ════════════════════════════════════════ */
+#projects {
+  background:
+    radial-gradient(102% 78% at 12% 10%, rgba(59,125,216,.06), transparent 56%),
+    radial-gradient(90% 70% at 88% 90%, rgba(46,94,168,.05), transparent 62%),
+    #f3f6f8;
+  color: var(--gray-600);
+  position: relative;
+  overflow: hidden;
+}
+#projects::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59,125,216,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,125,216,.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: .28;
+  pointer-events: none;
+}
+#projects .container {
+  position: relative;
+  z-index: 1;
+}
+#projects .section-title { color: var(--navy); }
+#projects .section-subtitle { color: var(--gray-500); }
+#projects .section-pill {
+  background: rgba(59,125,216,.12);
+  color: var(--accent-dark);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.project-card {
+  --project-accent: linear-gradient(90deg, #2f85ff, #24c6ff);
+  --project-icon-bg: linear-gradient(135deg, #2771cb, #2aa8f4);
+  background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(248,251,255,.96));
+  border: 1px solid rgba(171,196,224,.45);
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(25,46,79,.12);
+  overflow: hidden;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--project-accent);
+}
+.project-card:nth-child(1) {
+  --project-accent: linear-gradient(90deg, #2f85ff, #28c4ff);
+  --project-icon-bg: linear-gradient(135deg, #2f86df, #2ac1fa);
+}
+.project-card:nth-child(2) {
+  --project-accent: linear-gradient(90deg, #9b5cf6, #f35fa9);
+  --project-icon-bg: linear-gradient(135deg, #9654f4, #d14ec8);
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(132,172,214,.6);
+  box-shadow: 0 14px 28px rgba(25,46,79,.18);
+}
+
+.project-body {
+  padding: 1.35rem 1.25rem 1.2rem;
+}
+.project-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .9rem;
+  margin-bottom: .9rem;
+}
+.project-head-main {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  min-width: 0;
+}
+.project-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  background: var(--project-icon-bg);
+  border: 1px solid rgba(151,185,219,.5);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.project-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.project-title-wrap { min-width: 0; }
+.project-name {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.25;
+}
+.project-subtitle {
+  margin-top: .14rem;
+  font-size: .94rem;
+  color: var(--gray-500);
+}
+.project-desc {
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--gray-600);
+  margin-bottom: .95rem;
+}
+.project-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .42rem .92rem;
+  margin-bottom: .9rem;
+  padding: 0;
+  list-style: none;
+}
+.project-features li {
+  font-size: .95rem;
+  color: var(--gray-600);
+  position: relative;
+  padding-left: 1.08rem;
+}
+.project-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #f0c15a;
+  font-weight: 700;
+}
+
+.project-tags {
+  display: flex;
+  gap: .45rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.tag {
+  font-size: .8rem;
+  font-weight: 600;
+  color: #32567f;
+  background: rgba(59,125,216,.09);
+  border: 1px solid rgba(124,164,205,.34);
+  border-radius: 999px;
+  padding: .3rem .7rem;
+}
+
+.project-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+.project-case-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .32rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--accent-dark);
+  font-size: .92rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  transition: color var(--transition), transform var(--transition);
+}
+.project-case-btn:hover {
+  color: var(--accent);
+  transform: translateX(2px);
+}
+
+/* ════════════════════════════════════════
+   6. SKILLS
+
+   ════════════════════════════════════════ */
+#skills {
+  background:
+    radial-gradient(105% 80% at 14% 12%, rgba(59,125,216,.06), transparent 55%),
+    radial-gradient(92% 72% at 86% 88%, rgba(46,94,168,.045), transparent 60%),
+    #f3f6f8;
+}
+.skills-tabs {
+  display: flex;
+  gap: .65rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: .4rem 0 1.8rem;
+}
+.skills-tab {
+  border: 1.5px solid var(--gray-200);
+  background: var(--white);
+  color: var(--gray-600);
+  border-radius: 20px;
+  padding: .42rem 1rem;
+  font-family: var(--font-body);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.skills-tab:hover {
+  border-color: var(--accent-mid);
+  color: var(--accent);
+}
+.skills-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(59,125,216,.22);
+}
+
+.skills-stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.skill-card {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 18px;
+  padding: 1.15rem 1.2rem 1rem;
+  box-shadow: 0 2px 10px rgba(30,42,74,.06);
+  transition: var(--transition);
+}
+.skill-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.skill-top {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .55rem;
+}
+.skill-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--off-white);
+  font-size: 1.55rem;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.skill-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  padding: 6px;
+}
+.skill-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .42rem;
+  margin-top: .7rem;
+}
+.skill-tag {
+  font-size: .72rem;
+  font-weight: 600;
+  color: #3d556f;
+  background: #eef3f8;
+  border: 1px solid #dbe4ee;
+  border-radius: 8px;
+  padding: .16rem .52rem;
+}
+
+/* ════════════════════════════════════════
+   8. CONTACT
+   ════════════════════════════════════════ */
+#contact { background: var(--white); }
+.contact-left .section-header { text-align: center; }
+.contact-left p {
+  color: var(--gray-600);
+  font-size: .92rem;
+  line-height: 1.85;
+  margin-bottom: 1.3rem;
+  text-align: center;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .9rem;
+  margin-top: .4rem;
+}
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.05rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+}
+.contact-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.contact-card-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+}
+.contact-card-text {
+  min-width: 0;
+}
+.contact-card-label {
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: #8c8c91;
+  text-transform: uppercase;
+  margin-bottom: .28rem;
+}
+.contact-card-value {
+  font-size: clamp(1rem, 1.7vw, 1.45rem);
+  line-height: 1.25;
+  font-weight: 700;
+  color: #2a2f39;
+  word-break: break-word;
+}
+@media (max-width: 900px) {
+  .contact-cards { grid-template-columns: 1fr; }
+}
+
+.contact-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+.contact-email-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .62rem 1.12rem;
+  border-radius: 30px;
+  background: var(--accent);
+  color: #fff;
+  font-size: .84rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  border: 2px solid var(--accent);
+  transition: var(--transition);
+  text-transform: uppercase;
+}
+.contact-email-btn:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59,125,216,.3);
+}
+
+/* Form */
+
+.contact-form { display: flex; flex-direction: column; gap: .9rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+.form-group { display: flex; flex-direction: column; gap: .3rem; }
+.form-group label {
+  font-size: .72rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gray-400);
+}
+.form-group input,
+.form-group textarea {
+  background: var(--off-white); border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm); padding: .7rem .9rem;
+  color: var(--navy); font-family: var(--font-body);
+  font-size: .78rem; font-weight: 400;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59,125,216,.12);
+  background: var(--white);
+}
+.form-group textarea { resize: vertical; min-height: 105px; }
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--gray-400); }
+
+/* Back to top */
+.back-to-top {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(30,42,74,.28);
+  border: 1px solid rgba(255,255,255,.26);
+  z-index: 260;
+  transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.back-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(30,42,74,.34);
+}
+.back-to-top:focus-visible {
+  outline: 3px solid rgba(59,125,216,.35);
+  outline-offset: 2px;
+}
+
+/* ════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════ */
+footer {
+  background: var(--navy); color: rgba(255,255,255,.5);
+  text-align: center; padding: 1.8rem 1.5rem;
+  font-size: .76rem; letter-spacing: .04em;
+}
+footer a { color: rgba(255,255,255,.7); transition: color var(--transition); }
+footer a:hover { color: #fff; }
+
+/* ════════════════════════════════════════
+   KEYFRAMES
+   ════════════════════════════════════════ */
+@keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeDown { from { opacity:0; transform:translateY(-12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:.5; transform:scale(.85); }
+}
+@keyframes bounce {
+  0%,100% { transform: rotate(45deg) translate(0,0); }
+  50% { transform: rotate(45deg) translate(3px,3px); }
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+@keyframes float {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(20px,-20px); }
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  section { padding: 4.5rem 1.2rem; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .about-head { margin-bottom: 1.25rem; }
+  .about-text { text-align: center; }
+  .about-highlights { max-width: 620px; margin: 0 auto; }
+  .about-highlight-card { grid-template-columns: 50px 1fr 40px; min-height: 106px; }
+  .about-highlight-title { font-size: 1.45rem; }
+  .about-metrics { grid-template-columns: 1fr; }
+  .about-comp-grid { grid-template-columns: 1fr; }
+
+  .timeline-item { grid-template-columns: 1fr; gap: .5rem; }
+  .timeline-left { text-align: left; }
+  .timeline-card::before { left: 1rem; top: -7px; }
+
+  .contact-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+  .contact-left .section-header { text-align: center; }
+  .form-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 500px) {
+  .awards-grid,
+  .projects-grid,
+  .skills-stack-grid { grid-template-columns: 1fr; }
+  .project-features { grid-template-columns: 1fr; }
+  .hero-name { font-size: clamp(2.2rem, 11vw, 3rem); }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Chihchen<span>.</span>Ko</a>
+    <div class="nav-links">
+      <a href="#hero" data-i18n="nav.home">Home</a>
+      <a href="#about" data-i18n="nav.about">About Me</a>
+      <a href="#experience" data-i18n="nav.experience">Experience</a>
+      <a href="#awards" data-i18n="nav.awards">Awards</a>
+      <a href="#projects" data-i18n="nav.projects">Projects</a>
+      <a href="#skills" data-i18n="nav.skills">Skills</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+      <div class="lang-toggle">
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+        <button class="lang-btn active" onclick="setLang('zh')">中</button>
+      </div>
+    </div>
+    <button class="nav-hamburger" onclick="openMobile()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobile()">✕</button>
+  <a href="#hero" onclick="closeMobile()" data-i18n="nav.home">Home</a>
+  <a href="#about" onclick="closeMobile()" data-i18n="nav.about">About Me</a>
+  <a href="#experience" onclick="closeMobile()" data-i18n="nav.experience">Experience</a>
+  <a href="#awards" onclick="closeMobile()" data-i18n="nav.awards">Awards</a>
+  <a href="#projects" onclick="closeMobile()" data-i18n="nav.projects">Projects</a>
+  <a href="#skills" onclick="closeMobile()" data-i18n="nav.skills">Skills</a>
+  <a href="#contact" onclick="closeMobile()" data-i18n="nav.contact">Contact</a>
+  <div class="lang-toggle" style="margin-top:.6rem;">
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn active" onclick="setLang('zh')">中</button>
+  </div>
+</div>
+
+<!-- ═══ 1. HERO ═══ -->
+<section id="hero">
+  <div class="hero-container">
+    <!-- Left: Text Content -->
+    <div class="hero-left">
+      <div class="hero-greeting">
+        <span class="hero-greeting-dot"></span>
+        <span data-i18n="hero.greeting">你好，我是</span>
+      </div>
+      <h1 class="hero-name-large" data-i18n="hero.nameLarge">葛芝辰</h1>
+      <p class="hero-name-en" data-i18n="hero.nameEn">Project / Product Management</p>
+      <p class="hero-intro" data-i18n="hero.intro">LLM 產品/專案管理 × AI 數位轉型 × 用戶體驗設計</p>
+      
+      <div class="hero-cta">
+        <a href="#about" class="btn-hero-primary" data-i18n="hero.btn1">了解更多 →</a>
+        <a href="#contact" class="btn-hero-secondary" data-i18n="hero.btn2">聯絡我</a>
+      </div>
+      
+      <div class="hero-social">
+        <a href="https://kochihchen.notion.site/2f704f58fe3080dfb8e1ca7efaeac7b9" class="hero-social-link" target="_blank" aria-label="Notion" title="Notion">
+          <img src="images/icons/notion.svg" alt="Notion icon" loading="lazy">
+        </a>
+        <a href="mailto:gzc870214@gmail.com" class="hero-social-link" aria-label="Email" title="Email">
+          <img src="images/icons/email.svg" alt="Email icon" loading="lazy">
+        </a>
+      </div>
+    </div>
+    
+    <!-- Right: Photo -->
+
+    <div class="hero-right">
+      <div class="hero-photo-wrap">
+        <div class="hero-photo"><img src="images/avatar.jpg" alt="Chihchen Ko avatar" loading="eager"></div>
+        <!--
+        <div class="hero-exp-badge">
+          <span class="num">2+</span>
+          <span class="label" data-i18n="hero.expLabel">Years Exp.</span>
+        </div>
+        -->
+        <div class="hero-status-badge">
+          <span class="hero-status-dot"></span>
+          <span data-i18n="hero.status">Open to Work</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="hero-scroll">
+    <span data-i18n="hero.scroll">向下滑動</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- ═══ 2. ABOUT ═══ -->
+<section id="about" class="bg-white">
+  <div class="container">
+    <div class="section-header about-head reveal d1">
+      <div class="section-pill"><span class="dot"></span><span data-i18n="sec.about">關於我</span></div>
+      <h2 class="section-title"><span data-i18n="about.t1">讓 AI 成為g</span> <em data-i18n="about.t2">可交付的服務</em></h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="reveal d2" data-i18n="about.p1">我是一位專注於 AI 服務與專案落地的專案經理／產品協作者，擅長把模糊需求轉成可驗收、可追蹤的工作流與交付物。從需求盤點、里程碑規劃、跨部門對齊，到測試迭代與上線交付，我讓每個環節「可對齊、可驗收、可持續運營」。</p>
+        <p class="reveal d3" data-i18n="about.p2">研究所期間，以 PM 身分帶領 Scrum 跨職能團隊交付政府採購案「AI 虛擬館員」，透過資料分析與回應策略優化，使平均回應時間縮短並交付後台營運/管理工具；同時主導「數據驅動 × 大語言模型的智慧報價服務」原型，串接 ERP/BOM、建立 Human-in-the-loop 審核機制，完成端到端流程並於競賽獲獎。</p>
+        <p class="reveal d3" data-i18n="about.p3">我重視透明溝通與執行節奏，習慣在工程、設計與業務之間對齊目標與決策，把想法變成真正會被使用的產品與服務。</p>
+      </div>
+
+      <div class="about-highlights reveal d2">
+        <article class="about-highlight-card academic" data-about-target="academic" role="button" tabindex="0" aria-expanded="false">
+          <div class="about-highlight-icon"><img src="images/about/academic.svg" alt="Academic icon" loading="lazy"></div>
+          <div>
+            <div class="about-highlight-label" data-i18n="about.h1.label">學術表現</div>
+            <div class="about-highlight-title" data-i18n="about.h1.title">斐陶斐榮譽會員</div>
+            <div class="about-highlight-meta" data-i18n="about.h1.meta">GPA 4.13 分</div>
+          </div>
+          <button class="about-toggle-btn" type="button" aria-label="Toggle details">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </article>
+
+        <article class="about-highlight-card competition" data-about-target="competition" role="button" tabindex="0" aria-expanded="false">
+          <div class="about-highlight-icon"><img src="images/about/competition.svg" alt="Competition icon" loading="lazy"></div>
+          <div>
+            <div class="about-highlight-label" data-i18n="about.h2.label">競賽成果</div>
+            <div class="about-highlight-title" data-i18n="about.h2.title">2項獲獎</div>
+            <div class="about-highlight-meta" data-i18n="about.h2.meta">雅典娜杯・鼎新數智創新競賽</div>
+          </div>
+          <button class="about-toggle-btn" type="button" aria-label="Toggle details">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </article>
+      </div>
+    </div>
+
+    <div class="about-detail-panels reveal d3">
+      <section class="about-detail-panel academic" data-about-panel="academic">
+        <div class="about-detail-head">
+          <div class="about-detail-icon"><img src="images/about/academic.svg" alt="Academic icon" loading="lazy"></div>
+          <div>
+            <div class="about-detail-title" data-i18n="about.panel.ac.title">東海大學</div>
+            <div class="about-detail-sub" data-i18n="about.panel.ac.sub">數位創新碩士 · 2022 – 2025</div>
+          </div>
+        </div>
+
+        <div class="about-metrics">
+          <div class="about-metric">
+            <div class="about-metric-name" data-i18n="about.panel.ac.m1n">學業平均成績GPA</div>
+            <div class="about-metric-value" data-i18n="about.panel.ac.m1v">4.13</div>
+            <div class="about-metric-note" data-i18n="about.panel.ac.m1d">系排名第一</div>
+          </div>
+          <div class="about-metric">
+            <div class="about-metric-name" data-i18n="about.panel.ac.m2n">6學期獲得</div>
+            <div class="about-metric-value" data-i18n="about.panel.ac.m2v">研究生獎學金</div>
+            <div class="about-metric-note" data-i18n="about.panel.ac.m2d">持續優異表現</div>
+          </div>
+          <div class="about-metric">
+            <div class="about-metric-name" data-i18n="about.panel.ac.m3n">畢業獲得</div>
+            <div class="about-metric-value" data-i18n="about.panel.ac.m3v">斐陶斐榮譽</div>
+            <div class="about-metric-note" data-i18n="about.panel.ac.m3d">品學兼優</div>
+          </div>
+
+        </div>
+
+        <div class="about-course-title" data-i18n="about.panel.ac.cTitle">主要修習課程</div>
+        <div class="about-course-tags">
+          <span data-i18n="about.panel.ac.c1">數位創新論</span>
+          <span data-i18n="about.panel.ac.c2">用戶體驗設計</span>
+          <span data-i18n="about.panel.ac.c3">新經濟與創新營運</span>
+          <span data-i18n="about.panel.ac.c4">數位轉型與企業計算</span>
+          <span data-i18n="about.panel.ac.c5">大數據與數位創新專題</span>
+          <span data-i18n="about.panel.ac.c6">AI提示工程</span>
+          <span data-i18n="about.panel.ac.c7">人工智慧與數位創新專題</span>
+        </div>
+      </section>
+
+      <section class="about-detail-panel competition" data-about-panel="competition">
+        <div class="about-detail-head">
+          <div class="about-detail-icon"><img src="images/about/competition.svg" alt="Competition icon" loading="lazy"></div>
+          <div>
+            <div class="about-detail-title" data-i18n="about.panel.cp.title">競賽獲獎紀錄</div>
+            <div class="about-detail-sub" data-i18n="about.panel.cp.sub">透過競賽驗證所學並挑戰自我</div>
+          </div>
+        </div>
+
+        <div class="about-comp-grid">
+          <article class="about-comp-card">
+            <div class="about-comp-title" data-i18n="about.panel.cp.i1t">雅典娜杯兩岸青年創新創業大賽</div>
+            <div class="about-comp-sub" data-i18n="about.panel.cp.i1s">冠軍・卓越創智項目</div>
+            <div class="about-comp-desc" data-i18n="about.panel.cp.i1d">以數據驅動結合大語言模型智慧報價服務的改良版本參賽，將製造業 RFQ 流程轉為可落地的端到端作業：LLM 解析詢價、串接 ERP/BOM 資料估算成本，並以人工審核機制確保報價可控，最終獲得冠軍肯定。</div>
+            <div class="about-comp-tags">
+              <span data-i18n="about.panel.cp.i1k1">LLM</span>
+              <span data-i18n="about.panel.cp.i1k2">PaaS</span>
+              <span data-i18n="about.panel.cp.i1k3">ERP/BOM</span>
+            </div>
+          </article>
+
+          <article class="about-comp-card">
+            <div class="about-comp-title" data-i18n="about.panel.cp.i2t">鼎新數智創新競賽</div>
+            <div class="about-comp-sub" data-i18n="about.panel.cp.i2s">冠軍</div>
+            <div class="about-comp-desc" data-i18n="about.panel.cp.i2d">打造數據驅動結合大語言模型的報價服務，釐清 RFQ → 報價流程、定義審核節點與資料流，設計METIS PaaS任務觸發與人工簽核；完成可展示的端到端流程，並在競賽中以可運作原型獲得冠軍。</div>
+            <div class="about-comp-tags">
+              <span data-i18n="about.panel.cp.i2k1">LLM</span>
+              <span data-i18n="about.panel.cp.i2k2">PaaS</span>
+              <span data-i18n="about.panel.cp.i2k3">ERP/BOM</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ 3. EXPERIENCE ═══ -->
+<section id="experience" class="bg-light">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-pill reveal"><span class="dot"></span><span data-i18n="sec.exp">經驗</span></div>
+      <h2 class="section-title reveal d1"><span data-i18n="exp.t1">我的</span> <em data-i18n="exp.t2">經歷</em></h2>
+      <p class="section-subtitle reveal d2" data-i18n="exp.sub">經歷與里程碑</p>
+    </div>
+
+    <!-- Filter pills -->
+    <div class="exp-filters reveal d2">
+      <button class="exp-filter-btn active" data-exp-filter="all" data-i18n="exp.f.all">📋 全部</button>
+      <button class="exp-filter-btn" data-exp-filter="work" data-i18n="exp.f.work">💼 工作</button>
+      <button class="exp-filter-btn" data-exp-filter="edu" data-i18n="exp.f.edu">🎓 學歷</button>
+      <button class="exp-filter-btn" data-exp-filter="competition" data-i18n="exp.f.competition">🏆 競賽</button>
+      <button class="exp-filter-btn" data-exp-filter="project" data-i18n="exp.f.project">📁 專案</button>
+      <button class="exp-filter-btn" data-exp-filter="academic" data-i18n="exp.f.academic">📚 學術活動</button>
+    </div>
+
+   <div class="timeline">
+
+  <!-- ── 2025 ── -->
+  <div class="timeline-year-node reveal"><div class="timeline-year-bubble">2025</div></div>
+
+  <!-- 2025: Education (Master) -->
+  <!-- Timeline icon files can be replaced directly in images/timeline-icons/ -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/thu_logo.png" alt="Education icon" loading="lazy"></div></div>
+  <div class="timeline-row right reveal d2" data-exp-cat="edu">
+    <div class="empty-slot"></div>
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-edu">學歷</span>
+          <span class="card-date">2022/09 – 2025/08</span>
+        </div>
+        <div class="timeline-title">東海大學｜工學院</div>
+        <div class="timeline-subtitle">數位創新碩士</div>
+        <div class="timeline-company">畢業論文：基於大語言模型的虛擬圖書館員</div>
+        <div class="timeline-desc">
+          在學程訓練下，建立以數位科技推動跨域創新的思維，修習用戶體驗設計、數位轉型與企業計算、大數據/AI 專題與 AI 提示工程等課程，收斂出數據分析、體驗設計、產品落地與跨域協作能力。<br>以 LLM + RAG 虛擬館員專題為主軸，於需求釐清與架構設計階段導入 對話體驗設計（互動流程／回應策略／錯誤處理），並透過互動 log 進行品質驗證與迭代優化；同時強化工程管理與交付能力，能對齊目標、管理進度並穩定交付。
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">LLM & RAG</span>
+          <span class="card-tag">用戶體驗設計 & 評估</span>
+          <span class="card-tag">數位轉型</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2025: AsianPLoP 2025 -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/aplop_logo.png" alt="Conference icon" loading="lazy"></div></div>
+  <div class="timeline-row left reveal d1" data-exp-cat="academic">
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-event">國際研討會</span>
+          <span class="card-date">2025/03</span>
+        </div>
+        <div class="timeline-title">第 11 屆 AsianPLoP 國際研討會「AI & Patterns」</div>
+        <div class="timeline-subtitle">會務工作人員｜現場動線與議程支援（3 天）</div>
+        <div class="timeline-company"></div>
+        <div class="timeline-desc">
+          支援國際研討會現場營運：負責場地與設備檢查、議程轉場與動線引導，確保議程準時與會場秩序；協助國際講者與與會者英文溝通與需求協調，提升現場應變效率。
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">會務執行</span>
+          <span class="card-tag">英文協調</span>
+          <span class="card-tag">臨場應變</span>
+        </div>
+        <div class="timeline-gallery">
+          <img class="timeline-gallery-img" src="images/experience/asianplop-1.jpg" alt="AsianPLoP photo 1" loading="lazy">
+          <img class="timeline-gallery-img" src="images/experience/asianplop-2.jpg" alt="AsianPLoP photo 2" loading="lazy">
+          <img class="timeline-gallery-img" src="images/experience/asianplop-3.jpg" alt="AsianPLoP photo 3" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="empty-slot"></div>
+  </div>
+
+  <!-- ── 2024 ── -->
+  <div class="timeline-year-node reveal"><div class="timeline-year-bubble">2024</div></div>
+
+  <!-- 2024: Data-Driven Intelligent Quotation Service -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/digwin_logo.png" alt="Competition icon" loading="lazy"></div></div>
+  <div class="timeline-row right reveal d2" data-exp-cat="competition">
+    <div class="empty-slot"></div>
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-award">競賽 / 產品原型</span>
+          <span class="card-date">2024/08 – 2024/10</span>
+        </div>
+        <div class="timeline-title">數據驅動 × 大語言模型的智慧報價服務</div>
+        <div class="timeline-subtitle">隊長｜RFQ→報價端到端流程設計</div>
+        <div class="timeline-company"></div>
+        <div class="timeline-desc">
+          主導需求盤點與 RFQ→報價流程梳理，定義範疇、里程碑與分工；協調團隊完成資料流與模組邊界設計，並串接 METIS PaaS 任務觸發機制，建立 Human-in-the-loop 審核流程：LLM 依 ERP/BOM 與歷史資料估算物料/工時並生成報價初稿，回傳平台觸發人工審核與修訂，確認後自動寄送客戶。完成可運作原型並於競賽獲獎。
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">流程設計</span>
+          <span class="card-tag">PaaS 任務流</span>
+          <span class="card-tag">Human-in-the-loop</span>
+        </div>
+        <div class="timeline-gallery">
+          <img class="timeline-gallery-img" src="images/experience/quotation-1.jpg" alt="Quotation project photo 1" loading="lazy">
+          <img class="timeline-gallery-img" src="images/experience/quotation-2.jpg" alt="Quotation project photo 2" loading="lazy">
+          <img class="timeline-gallery-img" src="images/experience/quotation-3.jpg" alt="Quotation project photo 3" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2024: Virtual Librarian -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/nlpi_logo.png" alt="Project icon" loading="lazy"></div></div>
+  <div class="timeline-row left reveal d1" data-exp-cat="project">
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-project">政府採購案 / 產品交付</span>
+          <span class="card-date">2023/06 – 2024/08</span>
+        </div>
+        <div class="timeline-title">AI 虛擬館員服務（LLM + RAG）</div>
+        <div class="timeline-subtitle">專案經理｜Scrum 跨職能團隊（6 人）端到端交付</div>
+        <div class="timeline-company"></div>
+        <div class="timeline-desc">
+          負責客戶需求對齊、里程碑與風險控管及跨部門協作，推進提案 → 開發 → 上線 → 驗收。以 Python / SQL 清理館藏與互動資料並分析 logs，優化回應機制使回應速度提升 70%；完成正式上線與驗收，並交付 2 項後台營運/管理工具，支援日常維運與報表需求。
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">交付管理</span>
+          <span class="card-tag">需求對齊</span>
+          <span class="card-tag">資料分析</span>
+        </div>
+        <div class="timeline-gallery">
+          <img class="timeline-gallery-img" src="images/experience/virtual-librarian-1.jpg" alt="Virtual Librarian photo 1" loading="lazy">
+          <img class="timeline-gallery-img" src="images/experience/virtual-librarian-2.jpg" alt="Virtual Librarian photo 2" loading="lazy">
+          <img class="timeline-gallery-img" src="images/experience/virtual-librarian-3.jpg" alt="Virtual Librarian photo 3" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="empty-slot"></div>
+  </div>
+
+  <!-- 2024: Future Library Design Workshop -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/tpl_logo.png" alt="Workshop icon" loading="lazy"></div></div>
+  <div class="timeline-row right reveal d2" data-exp-cat="academic">
+    <div class="empty-slot"></div>
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-workshop">工作坊</span>
+          <span class="card-date">2024/01</span>
+        </div>
+        <div class="timeline-title">未來圖書館設計工作坊</div>
+        <div class="timeline-subtitle">講座助教｜共創引導與產出整理</div>
+        <div class="timeline-company">臺中市立圖書館 × 東海大學</div>
+        <div class="timeline-desc">
+          協助工作坊流程推進與分組討論引導，帶領團隊聚焦核心議題與使用者需求；整理討論脈絡與共識要點，並以生成式 AI 協助快速視覺化概念草圖，促進提案雛形產出。
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">共創引導</span>
+          <span class="card-tag">洞察整理</span>
+          <span class="card-tag">概念視覺化</span>
+        </div>
+        <div class="timeline-gallery">
+          <img class="timeline-gallery-img" src="images/experience/future-library-1.jpg" alt="Future Library photo 1" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2024: AI on the Go -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/tcg_logo.svg" alt="Outreach icon" loading="lazy"></div></div>
+  <div class="timeline-row left reveal d1" data-exp-cat="academic">
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-talk">講座 / 教育推廣</span>
+          <span class="card-date">2024/01</span>
+        </div>
+        <div class="timeline-title">「愛因斯坦・愛飛揚」AI 下鄉教育計畫</div>
+        <div class="timeline-subtitle">共同講者｜實作課程設計與帶領</div>
+        <div class="timeline-company">臺中市政府 × 東海大學</div>
+        <div class="timeline-desc">
+          共同設計並帶領 AI 創作實作課程，示範生成式 AI 工具應用（圖像/動態/手繪輔助等）；以小組方式進行現場教學與即時協助，支持學生完成小型 AI 作品並進行成果分享。
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">課程設計</span>
+          <span class="card-tag">工具示範</span>
+          <span class="card-tag">現場教學</span>
+        </div>
+        <div class="timeline-gallery">
+          <img class="timeline-gallery-img" src="images/experience/ai-on-the-go-1.jpg" alt="AI on the Go photo 1" loading="lazy">
+          <img class="timeline-gallery-img" src="images/experience/ai-on-the-go-2.jpg" alt="AI on the Go photo 2" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="empty-slot"></div>
+  </div>
+
+  <!-- ── 2023 ── -->
+  <div class="timeline-year-node reveal"><div class="timeline-year-bubble">2023</div></div>
+
+  <!-- 2023: Seed Teacher Workshop -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/teb_logo.png" alt="Art workshop icon" loading="lazy"></div></div>
+  <div class="timeline-row right reveal d2" data-exp-cat="academic">
+    <div class="empty-slot"></div>
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-workshop">工作坊</span>
+          <span class="card-date">2023/11 – 2023/12</span>
+        </div>
+        <div class="timeline-title">AI 融入國中藝術領域教學種子教師工作坊</div>
+        <div class="timeline-subtitle">共同講者＆助教｜Demo × 實作帶練</div>
+        <div class="timeline-company">臺中市教育局 × 合盈光電 × 東海大學</div>
+        <div class="timeline-desc">
+          示範生成式 AI 於藝術教學的應用，帶領教師進行實作練習並提供即時 Q&A；協助現場流程與轉場安排，並支持團隊完成教案產出。
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">Demo 示範</span>
+          <span class="card-tag">即時支援</span>
+          <span class="card-tag">教案產出</span>
+        </div>
+        <div class="timeline-gallery">
+          <img class="timeline-gallery-img" src="images/experience/seed-teacher-1.jpg" alt="Seed Teacher photo 1" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2023: Virtual Librarian already spans; timeline keeps it in 2024 block above. -->
+
+  <!-- ── 2022 ── -->
+  <div class="timeline-year-node reveal"><div class="timeline-year-bubble">2022</div></div>
+
+  <!-- 2022: Research Assistant / Project Coordinator -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/digital innovation.png" alt="Research icon" loading="lazy"></div></div>
+  <div class="timeline-row left reveal d1" data-exp-cat="work">
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-work">研究 / 專案協作</span>
+          <span class="card-date">2022/04 – 2024/08</span>
+        </div>
+        <div class="timeline-title">東海大學｜數位創新研究所</div>
+        <div class="timeline-subtitle">研究助理 / 專案協調</div>
+        <div class="timeline-company"></div>
+        <div class="timeline-desc">入學前即加入導師研究團隊擔任研究助理，承接既有 AI 研究與產學合作專案，協助建立穩定的交付節奏與對外展示流程；同時負責 AI 沉浸式體驗廳設備維運與接待演示，確保展示品質與現場運作順暢。<br>工作方法：<br>以文件化＋節奏化追蹤，讓跨方協作可視化、可驗收。</div>
+        <ul class="timeline-checklist">
+          <li>承接並推進 2 項既有 AI 研究/專案</li>
+          <li>建立「需求 → 里程碑 → 執行 → 追蹤」的管理節奏</li>
+          <li>累計產出 100+ 份文件與交付物（計畫/簡報/報告/會議紀錄）</li>
+        </ul>
+        <div class="card-tags">
+          <span class="card-tag">專案協調</span>
+          <span class="card-tag">文件治理</span>
+          <span class="card-tag">對外溝通</span>
+        </div>
+      </div>
+    </div>
+    <div class="empty-slot"></div>
+  </div>
+
+  <!-- ── 2021 ── -->
+  <div class="timeline-year-node reveal"><div class="timeline-year-bubble">2021</div></div>
+
+  <!-- 2021: Education (Bachelor) -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/nnu_logo.png" alt="Education icon" loading="lazy"></div></div>
+  <div class="timeline-row left reveal d1" data-exp-cat="edu">
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-edu">學歷</span>
+          <span class="card-date">2016/09 – 2021/06</span>
+        </div>
+        <div class="timeline-title">南京師範大學｜外國語學院</div>
+        <div class="timeline-subtitle">德英雙語文學學士</div>
+        <div class="timeline-company">畢業論文（德文撰寫）：新聞價值話語分析視角下德國媒體對新冠疫情報導的研究</div>
+        <div class="timeline-desc">
+          培養跨語言與跨文化溝通能力，能以德／英進行資料蒐整、學術閱讀與書面表達；透過德文畢業論文訓練，建立文本分析、批判思考與論證寫作能力。並在學生會與活動統籌經驗中強化行政協調、資源整合與多方溝通，能在時程壓力下推進任務並確保執行落地。
+        </div>
+         <ul class="timeline-checklist">
+          <li>港澳台學生會｜會長：主辦 5+ 場大型活動，累計 500+ 參與人次</li>
+          <li>外院學生會辦公室部門｜副主任：支援院學生會行政事務；協助 3 場活動的贊助洽談與協調</li>
+         </ul>
+        <div class="card-tags">
+          <span class="card-tag">跨文化溝通</span>
+          <span class="card-tag">活動統籌</span>
+          <span class="card-tag">行政協調</span>
+        </div>
+      </div>
+    </div>
+    <div class="empty-slot"></div>
+  </div>
+
+  <!-- 2021: Teaching Assistant -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/nnu_logo.png" alt="Teaching assistant icon" loading="lazy"></div></div>
+  <div class="timeline-row right reveal d2" data-exp-cat="work">
+    <div class="empty-slot"></div>
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-intern">助教</span>
+          <span class="card-date">2021/03 – 2021/04</span>
+        </div>
+        <div class="timeline-title">南京師範大學｜德語系</div>
+        <div class="timeline-subtitle">課程助教｜教材與課務協助</div>
+        <div class="timeline-company"></div>
+        <div class="timeline-desc">
+          協助課程備課與課堂行政支援，整理與管理教學材料，並協調課務溝通與教學流程，確保課程準時、有序進行。
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">課務支援</span>
+          <span class="card-tag">教材整理</span>
+          <span class="card-tag">行政協調</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2019 ── -->
+  <div class="timeline-year-node reveal"><div class="timeline-year-bubble">2019</div></div>
+
+  <!-- 2019: Library Data Entry Assistant -->
+  <div class="timeline-icon-node reveal"><div class="timeline-icon-circle"><img src="images/timeline-icons/jslib_logo.png" alt="Internship icon" loading="lazy"></div></div>
+  <div class="timeline-row left reveal d1" data-exp-cat="work">
+    <div class="card-slot">
+      <div class="timeline-card">
+        <div class="card-header">
+          <span class="card-cat-pill cat-intern">實習</span>
+          <span class="card-date">2019/07 – 2019/08</span>
+        </div>
+        <div class="timeline-title">南京市建鄴區圖數捷數據處理中心</div>
+        <div class="timeline-subtitle">外文書籍錄入員｜德文&英文</div>
+        <div class="timeline-company"></div>
+        <div class="timeline-desc">
+          負責英文／德文書目資料建檔與校對，確保資料一致性與正確性。
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">資料建檔</span>
+          <span class="card-tag">資料校對</span>
+          <span class="card-tag">多語資料</span>
+        </div>
+      </div>
+    </div>
+    <div class="empty-slot"></div>
+  </div>
+
+</div><!-- end .timeline -->
+  </div>
+</section>
+
+<!-- ═══ 4. AWARDS ═══ -->
+<section id="awards" class="bg-white">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-pill reveal"><span class="dot"></span><span data-i18n="sec.awards">Awards</span></div>
+      <h2 class="section-title reveal d1"><span data-i18n="aw.t1">Recognition &amp;</span> <em data-i18n="aw.t2">Achievements</em></h2>
+    </div>
+    <div class="awards-grid">
+      <div class="award-card reveal d1">
+        <div class="award-icon">🎖️</div>
+        <div class="award-year" data-i18n="aw.y1">2024</div>
+        <div class="award-name" data-i18n="aw.n1">Best Innovation Award</div>
+        <div class="award-org" data-i18n="aw.o1">Taiwan Tech Summit</div>
+      </div>
+      <div class="award-card reveal d2">
+        <div class="award-icon">🏆</div>
+        <div class="award-year" data-i18n="aw.y2">2023</div>
+        <div class="award-name" data-i18n="aw.n2">Open Source Contributor of the Year</div>
+        <div class="award-org" data-i18n="aw.o2">GitHub Community</div>
+      </div>
+      <div class="award-card reveal d3">
+        <div class="award-icon">🏆</div>
+        <div class="award-year" data-i18n="aw.y3">2022</div>
+        <div class="award-name" data-i18n="aw.n3">Hackathon Grand Prize</div>
+        <div class="award-org" data-i18n="aw.o3">NTU AI Challenge</div>
+      </div>
+      <div class="award-card reveal d4">
+        <div class="award-icon">⭐</div>
+        <div class="award-year" data-i18n="aw.y4">2016 – 2021</div>
+        <div class="award-name" data-i18n="aw.n4">Undergraduate Scholarship Awards</div>
+        <div class="award-org" data-i18n="aw.o4">Multiple Taiwan & Jiangsu Province Scholarships</div>
+      </div>
+      <div class="award-card reveal d5">
+        <div class="award-icon">⭐</div>
+        <div class="award-year" data-i18n="aw.y5">2022 – 2025</div>
+        <div class="award-name" data-i18n="aw.n5">Graduate Scholarship Awards</div>
+        <div class="award-org" data-i18n="aw.o5">6 Semesters Scholarship · Tunghai University</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5. PROJECTS ═══ -->
+<section id="projects" class="bg-light">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-pill reveal"><span class="dot"></span><span data-i18n="sec.proj">專案</span></div>
+      <h2 class="section-title reveal d1"><span data-i18n="pr.t1">精選</span> <em data-i18n="pr.t2">專案</em></h2>
+      <p class="section-subtitle reveal d2" data-i18n="pr.sub">以流程推進 AI 落地：0→1 交付 × 跨部門協作 × 可驗收成果</p>
+    </div>
+
+    <div class="projects-grid">
+      <article class="project-card reveal d1">
+        <div class="project-body">
+          <div class="project-head">
+            <div class="project-head-main">
+              <div class="project-icon"><img src="images/projects/project-1.jpg" alt="Project 1 icon" loading="lazy"></div>
+              <div class="project-title-wrap">
+                <div class="project-name" data-i18n="pr.n1">基於大語言模型的AI虛擬館員</div>
+                <div class="project-subtitle" data-i18n="pr.s1">產品交付｜跨部門協作｜LLM 應用｜專案管理</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-desc" data-i18n="pr.d1">以 PM 身分推進 0→1 落地，帶領 6 人 Scrum 團隊為國立公共資訊圖書館打造 AI 虛擬館員。整合真人館員形象與語音，導入 LLM + RAG 與對話流程設計，最終使平均回應時間縮短 70%，並交付 2 項後台營運/維運工具，支援持續迭代。</div>
+
+          <ul class="project-features">
+            <li data-i18n="pr.f1a">LLM 意圖辨識／對話理解</li>
+            <li data-i18n="pr.f1b">平均回應時間縮短 70%</li>
+            <li data-i18n="pr.f1c">回答準確率 ≥ 85%</li>
+            <li data-i18n="pr.f1d">交付 2 項後台營運／維運工具</li>
+          </ul>
+
+          <div class="project-tags">
+            <span class="tag">Scrum</span>
+            <span class="tag">LLM</span>
+            <span class="tag">RAG</span>
+            <span class="tag">SQL</span>
+          </div>
+
+          <div class="project-actions">
+            <a href="https://www.nlpi.edu.tw/ReaderService/SmartService/Service10.htm" class="project-case-btn" data-i18n="pr.demo" target="_blank" rel="noopener">查看案例 →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card reveal d2">
+        <div class="project-body">
+          <div class="project-head">
+            <div class="project-head-main">
+              <div class="project-icon"><img src="images/projects/project-2.jpg" alt="Project 2 icon" loading="lazy"></div>
+              <div class="project-title-wrap">
+                <div class="project-name" data-i18n="pr.n2">Data-Driven AI Quotation Service</div>
+                <div class="project-subtitle" data-i18n="pr.s2">競賽交付｜流程重構｜LLM 應用｜雙料冠軍</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-desc" data-i18n="pr.d2">Team Lead for manufacturing RFQ-to-quotation workflow powered by LLM.</div>
+
+          <ul class="project-features">
+            <li data-i18n="pr.f2a">RFQ 語意解析／需求抽取</li>
+            <li data-i18n="pr.f2b">報價單自動生成</li>
+            <li data-i18n="pr.f2c">數據驅動審核任務</li>
+            <li data-i18n="pr.f2d">Human-in-the-loop</li>
+          </ul>
+
+          <div class="project-tags">
+            <span class="tag">Workflow Design</span>
+            <span class="tag">LLM</span>
+            <span class="tag">METIS PaaS</span>
+            <span class="tag">ERP/BOM</span>
+          </div>
+
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6. SKILLS
+ ═══ -->
+<section id="skills" class="bg-white">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-pill reveal"><span class="dot"></span><span data-i18n="sec.skills">技能</span></div>
+      <h2 class="section-title reveal d1"><span data-i18n="sk.t1">持續精進的</span> <em data-i18n="sk.t2">技能與工具</em></h2>
+    </div>
+    <div class="skills-tabs reveal d2" id="skillsTabs">
+      <button class="skills-tab active" data-skill-cat="software" data-i18n="sk.tab.software">軟體</button>
+      <button class="skills-tab" data-skill-cat="language" data-i18n="sk.tab.language">語言</button>
+      <button class="skills-tab" data-skill-cat="professional" data-i18n="sk.tab.professional">專業技能</button>
+    </div>
+    <div class="skills-stack-grid" id="skillsGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ 8. CONTACT ═══ -->
+<section id="contact" class="bg-white">
+  <div class="container">
+    <div style="max-width: 860px; margin: 0 auto;">
+      <div class="contact-left">
+        <div class="section-header">
+          <div class="section-pill reveal"><span class="dot"></span><span data-i18n="sec.contact">聯絡</span></div>
+          <h2 class="section-title reveal d1"><span data-i18n="co.t1">期待</span> <em data-i18n="co.t2">與您交流</em></h2>
+        </div>
+        <p class="reveal d2" data-i18n="co.desc">感謝您的閱讀！如需作品細節、履歷補充或面試安排，歡迎隨時來信。</p>
+
+        <div class="contact-cards reveal d3">
+          <div class="contact-card">
+            <div class="contact-card-icon"><img src="images/contact/location.svg" alt="Location icon" loading="lazy"></div>
+            <div class="contact-card-text">
+              <div class="contact-card-label" data-i18n="co.locationLabel">所在地</div>
+              <div class="contact-card-value" data-i18n="co.locationValue">台灣 台中</div>
+            </div>
+          </div>
+
+
+          <div class="contact-card">
+            <div class="contact-card-icon"><img src="images/contact/email.svg" alt="Email icon" loading="lazy"></div>
+            <div class="contact-card-text">
+              <div class="contact-card-label" data-i18n="co.emailLabel">EMAIL</div>
+              <div class="contact-card-value" data-i18n="co.emailValue">gzc870214@gmail.com</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-actions reveal d4">
+          <a href="mailto:gzc870214@gmail.com" class="contact-email-btn" data-i18n="co.mailBtn">寄送郵件給我</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <span data-i18n="footer">© 2026 Chihchen Ko · All rights reserved.</span>
+</footer>
+
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+/* ─── i18n ─── */
+const i18n = {
+  en: {
+    "nav.home":"Home",
+    "nav.about":"About Me",
+    "nav.experience":"Experience",
+    "nav.awards":"Awards",
+    "nav.projects":"Projects",
+    "nav.skills":"Skills",
+    "nav.contact":"Contact",
+    "hero.greeting":"Hello, I'm",
+    "hero.nameLarge":"Chihchen Ko",
+    "hero.nameEn":"Project / Product Management",
+    "hero.intro":"LLM Project Management × AI Digital Transformation × UX Design",
+    "hero.btn1":"Learn More →",
+    "hero.btn2":"Contact Me",
+    "hero.expLabel":"Years Exp.",
+    "hero.status":"Open to Work",
+    "hero.scroll":"Scroll Down",
+    "sec.about":"About Me",
+    "sec.exp":"Experience",
+    "sec.awards":"Awards",
+    "sec.proj":"Projects",
+    "sec.skills":"Skills",
+    "sec.contact":"Contact",
+    "about.t1":"From Requirement",
+    "about.t2":"to Delivery",
+    "about.p1":"I’m a project manager and product collaborator focused on delivering AI services and bringing projects from concept to production. I excel at translating ambiguous requirements into clear, verifiable workflows and deliverables. From requirement scoping, milestone planning, and cross-functional alignment to testing, iteration, and go-live delivery, I make every step aligned, verifiable, and sustainable to operate.",
+    "about.p2":"During graduate school, I led a cross-functional Scrum team as PM to deliver a government procurement project—an AI Virtual Librarian. Through data analysis and response-strategy optimization, we reduced average response time and delivered back-office operations/management tools. I also spearheaded a prototype of a data-driven, LLM-powered intelligent quotation service, integrating ERP/BOM data and establishing a human-in-the-loop review mechanism. We completed an end-to-end workflow and earned awards in innovation competitions.",
+    "about.p3":"I value transparent communication and execution rhythm. I’m used to aligning goals and decisions across engineering, design, and business—turning ideas into products and services that people actually use.",
+    "about.h1.label":"Academic Performance",
+    "about.h1.title":"Phi Tau Phi Honor Member",
+    "about.h1.meta":"GPA 4.13",
+    "about.h2.label":"Competition Results",
+    "about.h2.title":"2 Award Wins",
+    "about.h2.meta":"Athena Cup · Digiwin Innovation Competition",
+    "about.panel.ac.title":"Tunghai University",
+    "about.panel.ac.sub":"M.S. in Digital Innovation and Information · 2022 – 2025",
+    "about.panel.ac.m1n":"Academic GPA",
+    "about.panel.ac.m1v":"4.13",
+    "about.panel.ac.m1d":"Ranked 1st in class",
+    "about.panel.ac.m2n":"Awarded for 6 semesters",
+    "about.panel.ac.m2v":"Graduate Scholarships",
+    "about.panel.ac.m2d":"Sustained Excellent Performance",
+    "about.panel.ac.m3n":"Graduated with",
+    "about.panel.ac.m3v":"Phi Tau Phi Honor",
+    "about.panel.ac.m3d":"Academic Excellence",
+    "about.panel.ac.cTitle":"Key Coursework",
+    "about.panel.ac.c1":"Introduction of Digital Innovation",
+    "about.panel.ac.c2":"User Experience Design",
+    "about.panel.ac.c3":"New Economy and Business Model Innovation",
+    "about.panel.ac.c4":"Digital Transformation and Enterprise Computational Thinking",
+    "about.panel.ac.c5":"Seminar on Big Data and Digital Innovation",
+    "about.panel.ac.c6":"AI Prompt Engineering",
+    "about.panel.ac.c7":"Special Topics in AI and Digital Innovation",
+    "about.panel.cp.title":"Competition Award Records",
+    "about.panel.cp.sub":"Validated learning through competitions and continuous self-challenge",
+    "about.panel.cp.i1t":"Athena Cup Cross-Strait Youth Innovation & Entrepreneurship Competition",
+    "about.panel.cp.i1s":"Champion · Outstanding Innovation Project",
+    "about.panel.cp.i1d":"We entered the competition with an improved version of our data-driven, LLM-enabled intelligent quotation service, transforming the manufacturing RFQ process into a deployable end-to-end workflow. The LLM parses RFQ requests and integrates ERP/BOM data to estimate costs, while a human review (human-in-the-loop) mechanism ensures pricing remains controllable. Once approved, the quotation is automatically generated and sent to the customer—earning first place in the competition.",
+    "about.panel.cp.i1k1":"LLM",
+    "about.panel.cp.i1k2":"PaaS",
+    "about.panel.cp.i1k3":"ERP/BOM",
+    "about.panel.cp.i2t":"Digiwin Innovation Competition",
+    "about.panel.cp.i2s":"Champion",
+    "about.panel.cp.i2d":"Built a data-driven, LLM-powered quotation service by clarifying the RFQ-to-quotation workflow, defining review checkpoints and data flows, and designing METIS PaaS task triggers and manual approval steps. Delivered a demo-ready end-to-end prototype and won first place in the competition with a working, operational prototype.",
+    "about.panel.cp.i2k1":"LLM",
+    "about.panel.cp.i2k2":"PaaS",
+    "about.panel.cp.i2k3":"ERP/BOM",
+    "exp.t1":"My",
+    "exp.t2":"Journey",
+    "exp.sub":"Experience & Milestones",
+    "exp.f.all":"📋 All",
+    "exp.f.work":"💼 Work",
+    "exp.f.edu":"🎓 Education",
+    "exp.f.competition":"🏆 Competition",
+    "exp.f.project":"📁 Project",
+    "exp.f.academic":"📚 Academic Activity",
+    "aw.t1":"Awards &",
+    "aw.t2":"Honors",
+    "aw.y1":"2025",
+    "aw.n1":"Phi Tau Phi Honor Society",
+    "aw.o1":"Member",
+    "aw.y2":"2024",
+    "aw.n2":"Athena Cup Cross-Strait Youth Innovation & Entrepreneurship Competition — Champion",
+    "aw.o2":"Data-Driven × LLM Intelligent Quotation Service<br>Outstanding Innovation Project",
+    "aw.y3":"2024",
+    "aw.n3":"Digiwin Innovation Competition — Champion",
+    "aw.o3":"Data-Driven × LLM Intelligent Quotation Service",
+    "aw.y4":"2022 – 2025",
+    "aw.n4":"Graduate Scholarship Awards",
+    "aw.o4":"Tunghai University Graduate Scholarships (6 semesters)<br>Outstanding Freshman Scholarship",
+    "aw.y5":"2016 – 2021",
+    "aw.n5":"Undergraduate Scholarship Awards",
+    "aw.o5":"Taiwan Student Scholarship by Ministry of Education (3 times)<br>Jiangsu Taiwan Student Scholarship (2 times)",
+    "pr.t1":"Selected",
+    "pr.t2":"Work",
+    "pr.sub":"AI Implementation: <br>0→1 Delivery × Cross-Functional Collaboration × User Experience Design",
+    "pr.n1":"AI Virtual Librarian Based on LLM",
+    "pr.d1":"As the PM, I drove the project from 0→1 delivery, leading a six-member cross-functional Scrum team to build an AI Virtual Librarian for the National Library of Public Information. We integrated a real librarian’s avatar and voice, implemented an LLM + RAG architecture and conversational flow design, reduced average response time by 70%, and delivered two back-office operations/maintenance tools to support continuous iteration.",
+    "pr.n2":"Data-Driven × LLM Intelligent Quotation Service",
+    "pr.d2":"Rebuilt the RFQ-to-quotation workflow on METIS PaaS: the LLM parses RFQ requests and integrates ERP/BOM data to estimate materials and labor hours, generates an initial quotation draft, and triggers human-in-the-loop review tasks. Once approved, the quotation is automatically sent to the customer. As the team lead, I drove requirements scoping, designed the data flow and METIS review checkpoints, aligned cross-functional stakeholders, and delivered the competition submission—completing a working prototype in two months and winning awards.",
+    "pr.demo":"View →",
+    "pr.s1":"An On-site Real-Time Consultation Service Powered by LLM",
+    "pr.s2":"Manufacturing RFQ intelligent quotation workflow",
+    "pr.f1a":"LLM intent recognition / dialogue understanding",
+    "pr.f1b":"Average response time reduced by 70%",
+    "pr.f1c":"Answer accuracy ≥ 85%",
+    "pr.f1d":"Delivered two back-office operations/maintenance tools",
+    "pr.f2a":"ERP / BOM integration",
+    "pr.f2b":"Human-in-the-loop review",
+    "pr.f2c":"Working prototype completed in 2 months",
+    "pr.f2d":"Won 2 competition championships",
+    "sk.t1":"Growing",
+    "sk.t2":"Skill Stack",
+    "sk.tab.software":"Software",
+    "sk.tab.language":"Language",
+    "sk.tab.professional":"Professional Skills",
+    "co.t1":"Looking Forward",
+    "co.t2":"to Connecting with You",
+    "co.desc":"Thank you for reading. If you would like project details, additional resume information, or interview scheduling, <br> feel free to email me anytime.",
+    "co.locationLabel":"Location",
+    "co.locationValue":"Taichung, Taiwan",
+    "co.emailLabel":"Email",
+    "co.emailValue":"gzc870214@gmail.com",
+    "co.mailBtn":"Send me an email",
+    "lb.hint":"Click anywhere or press ESC to close",
+    "footer":"© 2026 Chihchen Ko · All rights reserved."
+  
+  },
+  zh: {
+    "nav.home":"首頁",
+    "nav.about":"關於我",
+    "nav.experience":"經歷",
+    "nav.awards":"獎項",
+    "nav.projects":"專案",
+    "nav.skills":"技能",
+    "nav.contact":"聯絡",
+    "hero.greeting":"你好，我是",
+    "hero.nameLarge":"葛芝辰",
+    "hero.nameEn":"Project / Product Management",
+    "hero.intro":"LLM 產品/專案管理 × AI 數位轉型 × 用戶體驗設計",
+    "hero.btn1":"了解更多 →",
+    "hero.btn2":"聯絡我",
+    "hero.expLabel":"年經驗",
+    "hero.status":"Open to work",
+    "hero.scroll":"向下滑動",
+    "sec.about":"關於我",
+    "sec.exp":"經歷",
+    "sec.awards":"獎項",
+    "sec.proj":"專案",
+    "sec.skills":"技能",
+    "sec.contact":"聯絡",
+    "about.t1":"讓 AI 成為",
+    "about.t2":"可交付的服務",
+    "about.p1":"我是一位專注於 AI 服務與專案落地的專案經理／產品協作者，擅長把模糊需求轉成可驗收、可追蹤的工作流與交付物。從需求盤點、里程碑規劃、跨部門對齊，到測試迭代與上線交付，我讓每個環節「可對齊、可驗收、可持續運營」。",
+    "about.p2":"研究所期間，以 PM 身分帶領 Scrum 跨職能團隊交付政府採購案「AI 虛擬館員」，透過資料分析與回應策略優化，使平均回應時間縮短並交付後台營運/管理工具；同時主導「數據驅動 × 大語言模型的智慧報價服務」原型，串接 ERP/BOM、建立 Human-in-the-loop 審核機制，完成端到端流程並於競賽獲獎。",
+    "about.p3":"我重視透明溝通與執行節奏，習慣在工程、設計與業務之間對齊目標與決策，把想法變成真正會被使用的產品與服務。",
+    "about.h1.label":"學術表現",
+    "about.h1.title":"斐陶斐榮譽會員",
+    "about.h1.meta":"GPA 4.13 分",
+    "about.h2.label":"競賽成果",
+    "about.h2.title":"2項獲獎",
+    "about.h2.meta":"雅典娜杯・鼎新數智創新競賽",
+    "about.panel.ac.title":"東海大學",
+    "about.panel.ac.sub":"數位創新資訊碩士 · 2022 – 2025",
+    "about.panel.ac.m1n":"學業平均成績GPA",
+    "about.panel.ac.m1v":"4.13",
+    "about.panel.ac.m1d":"系排名第1",
+    "about.panel.ac.m2n":"6學期獲得",
+    "about.panel.ac.m2v":"研究生獎學金",
+    "about.panel.ac.m2d":"持續優異表現",
+    "about.panel.ac.m3n":"畢業獲得",
+    "about.panel.ac.m3v":"斐陶斐榮譽",
+    "about.panel.ac.m3d":"品學兼優",
+    "about.panel.ac.cTitle":"主要修習課程",
+    "about.panel.ac.c1":"數位創新論",
+    "about.panel.ac.c2":"用戶體驗設計",
+    "about.panel.ac.c3":"新經濟與創新營運",
+    "about.panel.ac.c4":"數位轉型與企業計算",
+    "about.panel.ac.c5":"大數據與數位創新專題",
+    "about.panel.ac.c6":"AI提示工程",
+    "about.panel.ac.c7":"人工智慧與數位創新專題",
+    "about.panel.cp.title":"競賽獲獎紀錄",
+    "about.panel.cp.sub":"透過競賽驗證所學並挑戰自我",
+    "about.panel.cp.i1t":"雅典娜杯兩岸青年創新創業大賽",
+    "about.panel.cp.i1s":"冠軍・卓越創智項目",
+    "about.panel.cp.i1d":"以「數據驅動結合大語言模型智慧報價服務」的改良版本參賽，將製造業 RFQ 流程轉為可落地的端到端工作流：LLM 解析詢價並串接 ERP/BOM 資料估算成本，並以人工審核機制確保報價可控，審核通過自動寄送報價單，最終獲得冠軍肯定。",
+    "about.panel.cp.i1k1":"LLM",
+    "about.panel.cp.i1k2":"PaaS",
+    "about.panel.cp.i1k3":"ERP/BOM",
+    "about.panel.cp.i2t":"鼎新數智創新競賽",
+    "about.panel.cp.i2s":"冠軍",
+    "about.panel.cp.i2d":"打造「數據驅動結合大語言模型的報價服務」，釐清 RFQ → 報價流程、定義審核節點與資料流，設計METIS PaaS任務觸發與人工簽核；完成可展示的端到端原型，在競賽中以可運作原型獲得冠軍。",
+    "about.panel.cp.i2k1":"LLM",
+    "about.panel.cp.i2k2":"PaaS",
+    "about.panel.cp.i2k3":"ERP/BOM",
+    "exp.t1":"我的",
+    "exp.t2":"經歷",
+    "exp.sub":"經歷與里程碑",
+    "exp.f.all":"📋 全部",
+    "exp.f.work":"💼 工作",
+    "exp.f.edu":"🎓 學歷",
+    "exp.f.competition":"🏆 競賽",
+    "exp.f.project":"📁 專案",
+    "exp.f.academic":"📚 學術活動",
+    "aw.t1":"獎項與",
+    "aw.t2":"荣誉",
+    "aw.y1":"2025",
+    "aw.n1":"斐陶斐榮譽學會",
+    "aw.o1":"榮譽會員",
+    "aw.y2":"2024",
+    "aw.n2":"雅典娜杯兩岸青年創新創業大賽 — 冠軍",
+    "aw.o2":"數據驅動 × 大語言模型的智慧報價服務<br>卓越創智項目",
+    "aw.y3":"2024",
+    "aw.n3":"鼎新數智創新競賽 — 冠軍",
+    "aw.o3":"數據驅動 × 大語言模型智慧報價服務",
+    "aw.y4":"2022 – 2025",
+    "aw.n4":"碩士階段獎學金",
+    "aw.o4":"東海大學研究生獎學金（共 6 學期）<br>優秀新生入學獎學金",
+    "aw.y5":"2016 – 2021",
+    "aw.n5":"大學階段獎學金",
+    "aw.o5":"教育部台灣學生獎學金（3次）<br>江蘇省台灣學生獎學金（2次）",
+    "pr.t1":"精選",
+    "pr.t2":"專案",
+    "pr.sub":"AI 應用落地：0→1 交付 × 跨部門協作 × 用戶體驗設計",
+    "pr.n1":"基於大語言模型的AI虛擬館員",
+    "pr.d1":"以 PM 身分推進 0→1 落地，帶領 6 人 Scrum 團隊為國立公共資訊圖書館打造 AI 虛擬館員。整合真人館員形象與語音，導入 LLM + RAG 與對話流程設計，最終使平均回應時間縮短 70%，並交付 2 項後台營運/維運工具，支援持續迭代。",
+    "pr.n2":"數據驅動 × LLM 的智慧報價服務",
+    "pr.d2":"以 METIS PaaS 為載體重構 RFQ→報價流程：LLM 解析詢價內容並串接 ERP/BOM 資料估算物料與工時，生成報價初稿並觸發 Human-in-the-loop 審核任務；審核通過後自動寄送客戶。以團隊隊長身分主導需求盤點、資料流/METIS審核節點設計、跨部門對齊與競賽交付，2 個月完成可運作原型並獲獎。",
+    "pr.s1":"LLM + RAG 的館內即時諮詢服務",
+    "pr.f1a":"LLM 意圖辨識／對話理解",
+    "pr.f1b":"平均回應時間縮短 70%",
+    "pr.f1c":"回答準確率 ≥ 85%",
+    "pr.f1d":"交付 2 項後台營運／維運工具",
+    "pr.s2":"製造業 RFQ 智慧報價流程",
+    "pr.f2a":"ERP / BOM 串接",
+    "pr.f2b":"Human-in-the-loop 審核機制",
+    "pr.f2c":"2 個月完成可運作原型",
+    "pr.f2d":"競賽冠軍（2項）",
+    "pr.demo":"查看 →",
+    "sk.t1":"持續精進的",
+    "sk.t2":"技能與工具",
+    "sk.tab.software":"軟體",
+    "sk.tab.language":"語言",
+    "sk.tab.professional":"專業技能",
+    "co.t1":"期待",
+    "co.t2":"與您交流",
+    "co.desc":"感謝您的閱讀！如需作品細節、履歷補充或面試安排，歡迎隨時來信。",
+    "co.locationLabel":"所在地",
+    "co.locationValue":"台灣 台中",
+    "co.emailLabel":"Email",
+    "co.emailValue":"gzc870214@gmail.com",
+    "co.mailBtn":"寄送郵件給我",
+    "lb.hint":"點擊任意處或按 ESC 關閉",
+    "footer":"© 2026 Chihchen Ko · All rights reserved."
+  
+  }
+};
+
+const skillStacks = {
+  software: {
+    zh: [
+      { icon: "images/icons/photoshop.svg",  name: "Adobe Photoshop", level: 84, tags: ["圖像修整", "去背合成", "簡報素材製作"] },
+      { icon: "images/icons/figma.svg",      name: "Figma",          level: 84, tags: ["線框原型", "設計審查", "規格註記"] },
+      { icon: "images/icons/postgresql.svg", name: "PostgreSQL",     level: 76, tags: ["查詢/篩選", "JOIN 彙整", "匯出分析"] },
+      { icon: "images/icons/python.svg",     name: "Python",         level: 76, tags: ["讀碼理解", "基礎語法", "協助除錯"] },
+      { icon: "images/icons/capcut.svg",     name: "CapCut",         level: 76, tags: ["Demo 剪輯", "字幕製作", "節奏剪接"] },
+      { icon: "images/icons/midjourney.svg", name: "Midjourney",     level: 76, tags: ["概念示意", "視覺草稿", "故事分鏡"] },
+      { icon: "images/icons/notion.svg",     name: "Notion",         level: 90, tags: ["知識管理", "專案追蹤", "協作模板"] },
+      { icon: "images/icons/chatgpt.svg",    name: "ChatGPT",        level: 84, tags: ["摘要與潤稿", "文件草擬", "資訊整理"] },
+      { icon: "images/icons/excel.svg",      name: "Excel",          level: 76, tags: ["資料整理", "樞紐分析", "圖表視覺化"] },
+      { icon: "images/icons/word.svg",       name: "Word",           level: 90, tags: ["文件撰寫", "規格/PRD", "報告整理"] },
+      { icon: "images/icons/powerpoint.svg", name: "PowerPoint",     level: 90, tags: ["提案簡報", "架構圖示", "視覺溝通"] },
+      { icon: "images/icons/canva.svg",      name: "Canva",          level: 90, tags: ["簡報製作", "平面設計", "快速排版"] }
+    ],
+    en: [
+      { icon: "images/icons/photoshop.svg",  name: "Adobe Photoshop", level: 84, tags: ["Image Retouch", "Cutout & Composite", "Slide Assets"] },
+      { icon: "images/icons/figma.svg",      name: "Figma",           level: 84, tags: ["Wireframing", "Design Review", "Spec Annotations"] },
+      { icon: "images/icons/postgresql.svg", name: "PostgreSQL",      level: 76, tags: ["Querying", "JOIN & Aggregation", "Data Export"] },
+      { icon: "images/icons/python.svg",     name: "Python",          level: 76, tags: ["Code Reading", "Core Syntax", "Debugging Support"] },
+      { icon: "images/icons/capcut.svg",     name: "CapCut",          level: 76, tags: ["Demo Editing", "Subtitles", "Timing & Pacing"] },
+      { icon: "images/icons/midjourney.svg", name: "Midjourney",      level: 76, tags: ["Concept Mockups", "Visual Drafts", "Storyboard"] },
+      { icon: "images/icons/notion.svg",     name: "Notion",          level: 90, tags: ["Knowledge Base", "Project Tracking", "Team Templates"] },
+      { icon: "images/icons/chatgpt.svg",    name: "ChatGPT",         level: 84, tags: ["Summarization", "Document Drafting", "Info Structuring"] },
+      { icon: "images/icons/excel.svg",      name: "Excel",           level: 76, tags: ["Data Cleaning", "Pivot Tables", "Data Visualization"] },
+      { icon: "images/icons/word.svg",       name: "Word",            level: 90, tags: ["Document Writing", "Spec / PRDs", "Report Formatting"] },
+      { icon: "images/icons/powerpoint.svg", name: "PowerPoint",      level: 90, tags: ["Pitch Deck", "System Diagrams", "Visual Storytelling"] },
+      { icon: "images/icons/canva.svg",      name: "Canva",           level: 90, tags: ["Slide Production", "Graphic Design", "Fast Layout"] }
+    ]
+  },
+  language: {
+    zh: [
+      { icon: "images/icons/lang-zh.svg", name: "中文", level: 100, tags: ["母語", "繁簡皆可", "商務溝通"] },
+      { icon: "images/icons/lang-en.svg", name: "英文", level: 75, tags: ["TOEIC 765", "閱讀/聽力強", "會議協調與紀錄"] },
+      { icon: "images/icons/lang-de.svg", name: "德文", level: 50, tags: ["PGG ≈ B1", "較少使用", "可快速拾回"] }
+    ],
+    en: [
+      { icon: "images/icons/lang-zh.svg", name: "Mandarin", level: 100, tags: ["Native", "Traditional & Simplified", "Business Communication"] },
+      { icon: "images/icons/lang-en.svg", name: "English", level: 80, tags: ["TOEIC 765", "Strong Reading & Listening", "Meeting Coordination & Note-taking"] },
+      { icon: "images/icons/lang-de.svg", name: "German", level: 50, tags: ["PGG ≈ B1", "Less Frequently Used", "Quick to Refresh"] }
+    ]
+  },
+  professional: {
+    zh: [
+      { icon: "images/icons/management.png",   name: "專案管理",         level: 90, tags: ["里程碑規劃", "進度追蹤", "風險控管"] },
+      { icon: "images/icons/collab.png",       name: "跨部門對齊",       level: 90, tags: ["會議引導", "需求對齊", "推動決策"] },
+      { icon: "images/icons/docs.png",         name: "交付與文件管理",   level: 92, tags: ["會議紀錄", "交付控管", "版本管理"] },
+      { icon: "images/icons/prd.png",          name: "需求梳理與文件化", level: 88, tags: ["PRD / Spec", "驗收標準", "決策紀錄"] },
+      { icon: "images/icons/presentation.png", name: "提案與簡報",       level: 88, tags: ["敘事架構", "審查簡報", "高層彙報"] },
+      { icon: "images/icons/product.png",      name: "問題與方案拆解",   level: 82, tags: ["問題定義", "方案評估", "範疇界定"] }
+    ],
+    en: [
+      { icon: "images/icons/management.png",   name: "Project Management", level: 90, tags: ["Milestone Planning", "Progress Tracking", "Risk Control"] },
+      { icon: "images/icons/collab.png",       name: "Cross-functional Alignment", level: 90, tags: ["Meeting Facilitation", "Requirements Alignment", "Decision-Making Support"] },
+      { icon: "images/icons/docs.png",         name: "Delivery & Documentation", level: 92, tags: ["Meeting Notes", "Delivery Tracking", "Version Control"] },
+      { icon: "images/icons/prd.png",          name: "Requirement Structuring", level: 88, tags: ["PRDs / Specs", "Acceptance Criteria", "Decision Logs"] },
+      { icon: "images/icons/presentation.png", name: "Pitching & Presentations", level: 88, tags: ["Storyline Structuring", "Review Presentations", "Executive Reporting"] },
+      { icon: "images/icons/product.png",      name: "Problem-Solution Framing", level: 82, tags: ["Problem Definition", "Option Evaluation", "Scope Definition"] }
+    ]
+  }
+};
+
+let lang = 'en';
+let activeSkillCat = 'software';
+
+
+/* ─── Lang switch ─── */
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l === 'zh' ? 'zh-TW' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (i18n[l][k] !== undefined) el.innerHTML = i18n[l][k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === (l === 'en' ? 'EN' : '中'));
+  });
+  renderSkills();
+  renderExperienceContent();
+}
+
+/* ─── Experience Filters ─── */
+function initExperienceFilters() {
+  const wrap = document.querySelector('.exp-filters');
+  const timeline = document.querySelector('.timeline');
+  if (!wrap || !timeline) return;
+
+  const buttons = Array.from(wrap.querySelectorAll('.exp-filter-btn'));
+  const rows = Array.from(timeline.querySelectorAll('.timeline-row'));
+
+  function applyFilter(filter) {
+    buttons.forEach(btn => btn.classList.toggle('active', (btn.dataset.expFilter || 'all') === filter));
+
+    rows.forEach(row => {
+      const show = filter === 'all' || row.dataset.expCat === filter;
+      row.classList.toggle('filtered-out', !show);
+      const icon = row.previousElementSibling;
+      if (icon && icon.classList.contains('timeline-icon-node')) {
+        icon.classList.toggle('filtered-out', !show);
+      }
+    });
+
+const visibleRows = rows.filter(row => !row.classList.contains('filtered-out'));
+visibleRows.forEach((row, idx) => {
+  row.classList.remove('left', 'right');
+  row.classList.add(idx % 2 === 0 ? 'left' : 'right');
+});
+
+    const nodes = Array.from(timeline.children);
+    nodes.forEach((node, i) => {
+      if (!node.classList.contains('timeline-year-node')) return;
+      let hasVisibleRow = false;
+      for (let j = i + 1; j < nodes.length; j++) {
+        if (nodes[j].classList.contains('timeline-year-node')) break;
+        if (nodes[j].classList.contains('timeline-row') && !nodes[j].classList.contains('filtered-out')) {
+          hasVisibleRow = true;
+          break;
+        }
+      }
+      node.classList.toggle('filtered-out', !hasVisibleRow);
+    });
+
+    checkReveal();
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => applyFilter(btn.dataset.expFilter || 'all'));
+  });
+
+  applyFilter('all');
+}
+
+
+/* ─── Render Skills ─── */
+
+let experienceZhSnapshot = null;
+
+const experienceEnContent = [
+  {
+    cat: "Education",
+    date: "2022/09 – 2025/08",
+    title: "Tunghai University | College of Engineering",
+    subtitle: "M.S. in Digital Innovation",
+    company: "Thesis: AI Virtual Librarian Based on Large Language Models",
+    desc: "Through the program’s training, I developed a mindset of driving cross-disciplinary innovation with digital technology. By taking courses in UX design, digital transformation and enterprise computing, big data/AI capstone projects, and AI prompt engineering, I consolidated strong capabilities in data analysis, experience design, product delivery, and cross-functional collaboration.Centered on an LLM + RAG virtual librarian project, I incorporated conversational UX design during the requirements clarification and system architecture phases (interaction flows, response strategies, and error handling). I validated quality and iterated improvements using interaction logs, while also strengthening my engineering management and delivery skills—aligning goals, managing schedules, and delivering reliably.",
+    bullets: [],
+    tags: ["LLM & RAG", "UX & Evaluation", "Digital Transformation"]
+  },
+  {
+    cat: "Conference",
+    date: "2025/03",
+    title: "11th AsianPLoP International Conference: AI & Patterns",
+    subtitle: "Conference Staff | On-site flow and agenda support (3 days)",
+    company: "",
+    desc: "Supported on-site operations for an international conference by conducting venue and equipment checks, coordinating session transitions and attendee flow, and ensuring the agenda stayed on schedule and the venue ran smoothly. Facilitated English communication and coordinated requests between international speakers and participants, improving on-site responsiveness and efficiency.",
+    bullets: [],
+    tags: ["Operations", "English Coordination", "On-site Execution"]
+  },
+  {
+    cat: "Competition / Prototype",
+    date: "2024/08 – 2024/10",
+    title: "Data-Driven × LLM Intelligent Quotation Service",
+    subtitle: "Team Lead | End-to-end RFQ-to-quotation design",
+    company: "",
+    desc: "Led requirements scoping and mapped the end-to-end RFQ-to-quotation workflow, defining scope, milestones, and ownership. Coordinated the team to design data flows and module boundaries, and integrated the METIS PaaS task-trigger mechanism to establish a human-in-the-loop review process: the LLM estimates material and labor hours based on ERP/BOM and historical data, generates an initial quotation draft, and sends it back to the platform to trigger manual review and revisions. Once approved, the quotation is automatically delivered to the customer. Delivered a working prototype and received awards in the competition.",
+    bullets: [],
+    tags: ["Workflow Design", "PaaS Orchestration", "Human-in-the-loop"]
+  },
+  {
+    cat: "Government Project / Delivery",
+    date: "2023/06 – 2024/08",
+    title: "AI Virtual Librarian Service (LLM + RAG)",
+    subtitle: "Project Manager | 6-member Scrum cross-functional delivery",
+    company: "",
+    desc: "Aligned customer requirements, managed milestones and risks, and coordinated cross-functional stakeholders to drive delivery from proposal → development → go-live → acceptance. Used Python/SQL to clean catalog and interaction data and analyze logs, optimizing response mechanisms and improving response speed by 70%. Completed production launch and acceptance, and delivered two back-office operations/management tools to support daily maintenance and reporting needs.",
+    bullets: [],
+    tags: ["Project Management", "Requirement Alignment", "Data Analysis"]
+  },
+  {
+    cat: "Workshop",
+    date: "2024/01",
+    title: "Future Library Design Workshop",
+    subtitle: "Teaching Assistant | Co-creation facilitation and output synthesis",
+    company: "Taichung Public Library × Tunghai University",
+    desc: "Supported workshop facilitation and breakout-session discussions, guiding teams to focus on core topics and user needs. Synthesized discussion threads and key consensus points, and used generative AI to rapidly visualize concept sketches—accelerating the creation of proposal prototypes.",
+    bullets: [],
+    tags: ["Co-creation", "Insight Synthesis", "Concept Visualization"]
+  },
+  {
+    cat: "Talk / Education Outreach",
+    date: "2024/01",
+    title: "'Einstein • AI on the Go' Rural AI Education Program",
+    subtitle: "Co-instructor | Hands-on class design and facilitation",
+    company: "Taichung City Government × Tunghai University",
+    desc: "Co-designed and delivered hands-on AI creative workshops, demonstrating the use of generative AI tools (image generation, animation, and assisted sketching). Provided on-site instruction and real-time support in small groups, helping students complete mini AI projects and share their outcomes.",
+    bullets: [],
+    tags: ["Curriculum Design", "Tool Demonstration", "On-site Teaching"]
+  },
+  {
+    cat: "Workshop",
+    date: "2023/11 – 2023/12",
+    title: "AI for Junior High Art Education: Seed Teacher Workshop",
+    subtitle: "Co-instructor & TA | Demo and hands-on coaching",
+    company: "Taichung Education Bureau × H.P.B. Optoelectronics Co. × Tunghai University",
+    desc: "Demonstrated applications of generative AI in art education, guided teachers through hands-on practice, and provided real-time Q&A. Supported on-site logistics and session transitions, and helped the team produce lesson plans.",
+    bullets: [],
+    tags: ["Demo", "Real-time Support", "Lesson Plan Delivery"]
+  },
+  {
+    cat: "Research / Project Collaboration",
+    date: "2022/04 – 2024/08",
+    title: "Tunghai University | Digital Innovation Institute",
+    subtitle: "Research Assistant / Project Coordinator",
+    company: "",
+    desc: "Before starting the program, I joined my advisor’s research team as a research assistant, taking over ongoing AI research and industry–academia collaboration projects. I helped establish a steady delivery cadence and external demo workflow. In parallel, I managed equipment maintenance and hosted demonstrations for an AI immersive experience lab, ensuring high-quality showcases and smooth on-site operations.<br>Working approach:<br>I use documentation and cadence-based tracking to make cross-stakeholder collaboration visible and verifiable.",
+    bullets: [
+      "Took over and advanced two ongoing AI research/projects",
+      "Built a management cadence: requirements → milestones → execution → tracking",
+      "Produced 100+ documents and deliverables (plans, presentations, reports, meeting minutes)"
+    ],
+    tags: ["Project Coordination", "Documentation Governance", "External Communication"]
+  },
+  {
+    cat: "Education",
+    date: "2016/09 – 2021/06",
+    title: "Nanjing Normal University | School of Foreign Languages",
+    subtitle: "B.A. in German and English Literature",
+    company: "German thesis: Study on COVID-19 coverage in the German media based on news value discourse analysis",
+    desc: "Developed strong cross-language and cross-cultural communication skills, with the ability to conduct research, academic reading, and written communication in German and English. Through a German-language thesis, I built capabilities in text analysis, critical thinking, and evidence-based academic writing. My experience in student government and event coordination further strengthened my administrative coordination, resource integration, and multi-stakeholder communication—enabling me to drive tasks forward and ensure execution under tight timelines.",
+    bullets: [
+      "HK/Macau/Taiwan Student Association | President: Organized 5+ large-scale events with 500+ total participants",
+      "School of Foreign Languages Student Union (Office Dept.) | Deputy Director: Supported student union administration; assisted sponsorship outreach and coordination for 3 events"
+    ],
+    tags: ["Cross-cultural Communication", "Event Management", "Administrative Coordination"]
+  },
+  {
+    cat: "Teaching Assistant",
+    date: "2021/03 – 2021/04",
+    title: "Nanjing Normal University | German Department",
+    subtitle: "Course TA | Teaching material and class support",
+    company: "",
+    desc: "Assisted with lesson preparation and classroom administrative support, organized and managed teaching materials, and coordinated course communications and instructional workflows to ensure classes ran on time and smoothly.",
+    bullets: [],
+    tags: ["Class Support", "Material Organization", "Administrative Coordination"]
+  },
+  {
+    cat: "Internship",
+    date: "2019/07 – 2019/08",
+    title: "Nanjing Jianye Tushujie Data Processing Center",
+    subtitle: "Foreign-language Catalog Entry Assistant | German & English",
+    company: "",
+    desc: "Created and proofread English and German bibliographic records, ensuring data consistency and accuracy.",
+    bullets: [],
+    tags: ["Data Entry", "Data verification", "Multilingual Records"]
+  }
+];
+
+function snapshotExperienceZh() {
+  if (experienceZhSnapshot) return;
+  const rows = Array.from(document.querySelectorAll('.timeline .timeline-row'));
+  experienceZhSnapshot = rows.map((row) => ({
+    cat: row.querySelector('.card-cat-pill')?.innerHTML || '',
+    date: row.querySelector('.card-date')?.innerHTML || '',
+    title: row.querySelector('.timeline-title')?.innerHTML || '',
+    subtitle: row.querySelector('.timeline-subtitle')?.innerHTML || '',
+    company: row.querySelector('.timeline-company')?.innerHTML || '',
+    desc: row.querySelector('.timeline-desc')?.innerHTML || '',
+    bullets: Array.from(row.querySelectorAll('.timeline-checklist li')).map(li => li.textContent.trim()),
+    tags: Array.from(row.querySelectorAll('.card-tags .card-tag')).map(tag => tag.textContent.trim())
+  }));
+}
+
+function renderExperienceContent() {
+  snapshotExperienceZh();
+  const rows = Array.from(document.querySelectorAll('.timeline .timeline-row'));
+  const source = lang === 'en' ? experienceEnContent : experienceZhSnapshot;
+  if (!source || source.length !== rows.length) return;
+
+  rows.forEach((row, i) => {
+    const item = source[i];
+    const cat = row.querySelector('.card-cat-pill');
+    const date = row.querySelector('.card-date');
+    const title = row.querySelector('.timeline-title');
+    const subtitle = row.querySelector('.timeline-subtitle');
+    const company = row.querySelector('.timeline-company');
+    const desc = row.querySelector('.timeline-desc');
+
+    if (cat) cat.innerHTML = item.cat || '';
+    if (date) date.innerHTML = item.date || '';
+    if (title) title.innerHTML = item.title || '';
+    if (subtitle) subtitle.innerHTML = item.subtitle || '';
+    if (company) company.innerHTML = item.company || '';
+    if (desc) desc.innerHTML = item.desc || '';
+
+    const checklist = row.querySelector('.timeline-checklist');
+    if (checklist) {
+      const bullets = item.bullets || [];
+      checklist.innerHTML = bullets.map(text => `<li>${text}</li>`).join('');
+      checklist.style.display = bullets.length ? '' : 'none';
+    }
+
+    const tagsWrap = row.querySelector('.card-tags');
+    if (tagsWrap) {
+      tagsWrap.innerHTML = (item.tags || []).map(text => `<span class="card-tag">${text}</span>`).join('');
+    }
+  });
+}
+
+function renderSkills() {
+  const g = document.getElementById('skillsGrid');
+  const data = skillStacks[activeSkillCat][lang === 'zh' ? 'zh' : 'en'];
+  g.innerHTML = data.map((item, i) => `
+    <div class="skill-card reveal d${Math.min(i+1,5)}">
+      <div class="skill-top">
+        <div class="skill-icon"><img src="${item.icon}" alt="${item.name} icon" loading="lazy"></div>
+        <div class="skill-name">${item.name}</div>
+      </div>
+      <div class="skill-tags">
+        ${item.tags.map(tag => `<span class="skill-tag">${tag}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  requestAnimationFrame(() => {
+    g.querySelectorAll('.reveal').forEach(el => { if (inView(el)) el.classList.add('visible'); });
+  });
+}
+
+function initSkillTabs() {
+  const tabsWrap = document.getElementById('skillsTabs');
+  if (!tabsWrap) return;
+  tabsWrap.querySelectorAll('.skills-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeSkillCat = btn.dataset.skillCat;
+      tabsWrap.querySelectorAll('.skills-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderSkills();
+      checkReveal();
+    });
+  });
+}
+
+function initAboutHighlights() {
+  const cards = Array.from(document.querySelectorAll('.about-highlight-card[data-about-target]'));
+  const panels = Array.from(document.querySelectorAll('.about-detail-panel[data-about-panel]'));
+  if (!cards.length || !panels.length) return;
+
+  function setActive(target) {
+    cards.forEach(card => {
+      const active = !!target && card.dataset.aboutTarget === target;
+      card.classList.toggle('active', active);
+      card.setAttribute('aria-expanded', active ? 'true' : 'false');
+    });
+    panels.forEach(panel => {
+      panel.classList.toggle('active', !!target && panel.dataset.aboutPanel === target);
+    });
+  }
+
+  function toggleTarget(target) {
+    const current = cards.find(card => card.classList.contains('active'))?.dataset.aboutTarget || null;
+    setActive(current === target ? null : target);
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.about-toggle-btn')) return;
+      toggleTarget(card.dataset.aboutTarget);
+    });
+
+    card.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      toggleTarget(card.dataset.aboutTarget);
+    });
+
+    const btn = card.querySelector('.about-toggle-btn');
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleTarget(card.dataset.aboutTarget);
+      });
+    }
+  });
+
+  setActive(null);
+}
+
+/* ─── Scroll reveal ─── */
+
+function inView(el) { return el.getBoundingClientRect().top < window.innerHeight * 0.88; }
+function checkReveal() {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => { if (inView(el)) el.classList.add('visible'); });
+}
+window.addEventListener('scroll', checkReveal, { passive: true });
+
+/* ─── Nav shadow on scroll ─── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+
+function initExperienceImageZoom() {
+  const lightbox = document.getElementById('imageLightbox');
+  const lightboxImg = document.getElementById('imageLightboxImg');
+  const lightboxCaption = document.getElementById('imageLightboxCaption');
+  const closeBtn = document.getElementById('imageLightboxClose');
+  const prevBtn = document.getElementById('imageLightboxPrev');
+  const nextBtn = document.getElementById('imageLightboxNext');
+  if (!lightbox || !lightboxImg || !lightboxCaption || !closeBtn || !prevBtn || !nextBtn) return;
+
+  const svgns = 'http://www.w3.org/2000/svg';
+  let currentGroup = [];
+  let currentIndex = 0;
+
+  function showImage(index) {
+    if (!currentGroup.length) return;
+    currentIndex = (index + currentGroup.length) % currentGroup.length;
+    const img = currentGroup[currentIndex];
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt || 'Experience photo';
+    const card = img.closest('.timeline-card');
+    const title = card ? card.querySelector('.timeline-title') : null;
+    lightboxCaption.textContent = title ? title.textContent.trim() : '';
+    const multiple = currentGroup.length > 1;
+    prevBtn.style.display = multiple ? 'inline-flex' : 'none';
+    nextBtn.style.display = multiple ? 'inline-flex' : 'none';
+  }
+
+  function openLightbox(group, idx) {
+    currentGroup = group;
+    showImage(idx);
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.querySelectorAll('.timeline-gallery-img').forEach((img) => {
+    if (img.parentElement && img.parentElement.classList.contains('timeline-gallery-item')) return;
+
+    const wrap = document.createElement('button');
+    wrap.type = 'button';
+    wrap.className = 'timeline-gallery-item';
+    wrap.setAttribute('aria-label', '放大圖片');
+
+    const icon = document.createElementNS(svgns, 'svg');
+    icon.setAttribute('viewBox', '0 0 24 24');
+    icon.classList.add('zoom-icon');
+    const p1 = document.createElementNS(svgns, 'circle');
+    p1.setAttribute('cx', '11'); p1.setAttribute('cy', '11'); p1.setAttribute('r', '6.5');
+    p1.setAttribute('fill', 'none'); p1.setAttribute('stroke', 'currentColor'); p1.setAttribute('stroke-width', '2');
+    const p2 = document.createElementNS(svgns, 'line');
+    p2.setAttribute('x1', '16'); p2.setAttribute('y1', '16'); p2.setAttribute('x2', '21'); p2.setAttribute('y2', '21');
+    p2.setAttribute('stroke', 'currentColor'); p2.setAttribute('stroke-width', '2'); p2.setAttribute('stroke-linecap', 'round');
+    const p3 = document.createElementNS(svgns, 'line');
+    p3.setAttribute('x1', '11'); p3.setAttribute('y1', '8'); p3.setAttribute('x2', '11'); p3.setAttribute('y2', '14');
+    p3.setAttribute('stroke', 'currentColor'); p3.setAttribute('stroke-width', '2'); p3.setAttribute('stroke-linecap', 'round');
+    const p4 = document.createElementNS(svgns, 'line');
+    p4.setAttribute('x1', '8'); p4.setAttribute('y1', '11'); p4.setAttribute('x2', '14'); p4.setAttribute('y2', '11');
+    p4.setAttribute('stroke', 'currentColor'); p4.setAttribute('stroke-width', '2'); p4.setAttribute('stroke-linecap', 'round');
+    icon.append(p1, p2, p3, p4);
+
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(img);
+    wrap.appendChild(icon);
+
+    wrap.addEventListener('click', () => {
+      const gallery = img.closest('.timeline-gallery');
+      const group = gallery ? Array.from(gallery.querySelectorAll('.timeline-gallery-img')) : [img];
+      const idx = group.indexOf(img);
+      openLightbox(group, idx >= 0 ? idx : 0);
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+    currentGroup = [];
+    currentIndex = 0;
+  }
+
+  prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex - 1);
+  });
+  nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showImage(currentIndex + 1);
+  });
+
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+  });
+}
+
+function updateBackToTopVisibility() {
+  const btn = document.querySelector('.back-to-top');
+  if (!btn) return;
+  btn.classList.toggle('visible', window.scrollY > window.innerHeight);
+}
+window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
+
+/* ─── Mobile menu ─── */
+function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+/* ─── Init ─── */
+document.addEventListener('DOMContentLoaded', () => {
+  initSkillTabs();
+  initExperienceFilters();
+  initExperienceImageZoom();
+  initAboutHighlights();
+  setLang('zh');
+  setTimeout(checkReveal, 80);
+  updateBackToTopVisibility();
+});
+</script>
+
+<div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+  <div class="image-lightbox-dialog">
+    <div class="image-lightbox-frame">
+      <button class="image-lightbox-nav image-lightbox-prev" type="button" id="imageLightboxPrev" aria-label="Previous">‹</button>
+      <button class="image-lightbox-nav image-lightbox-next" type="button" id="imageLightboxNext" aria-label="Next">›</button>
+      <button class="image-lightbox-close" type="button" id="imageLightboxClose" aria-label="Close">×</button>
+      <img class="image-lightbox-img" id="imageLightboxImg" src="" alt="">
+    </div>
+    <div class="image-lightbox-caption" id="imageLightboxCaption"></div>
+    <div class="image-lightbox-hint" data-i18n="lb.hint">點擊任意處或按 ESC 關閉</div>
+  </div>
+</div>
+
+<a href="#hero" class="back-to-top" aria-label="Back to top" title="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M12 19V5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M6 11L12 5L18 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
+
+</body>
+</html>
